@@ -1,4 +1,5 @@
 .\ignore
+'.\ignore\Anki questions.md'
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
