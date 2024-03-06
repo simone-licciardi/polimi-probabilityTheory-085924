@@ -1,0 +1,60 @@
+\documentclass[a4paper, 11pt]{report}
+
+\usepackage[english]{babel}
+\usepackage[hmargin=2cm,vmargin=2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{cases}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+\usepackage{kantlipsum}
+%\usepackage{graphicx,float}
+%\usepackage{caption,subcaption}
+%\usepackage{multirow}
+%\usepackage[shortlabels]{enumitem}
+%\usepackage{booktabs}
+%\usepackage[style=numeric,sorting=nty,backend=bibtex]{biblatex}
+
+\newtheorem{my_theorem}{Theorem}[section]
+\newtheorem{my_lemma}[my_theorem]{Lemma}
+\newtheorem{my_corollary}[my_theorem]{Corollario}
+\newtheorem{my_property}[my_theorem]{Proprietà}
+	\theoremstyle{definition}
+\newtheorem{my_definition}[my_theorem]{Definizione}
+	\theoremstyle{remark}
+\newtheorem{my_remark}[my_theorem]{Remark}
+
+\newcommand{\salg}{\sigma\mathcal{A}}
+\newcommand{\varsalg}{\sigma\mathcal{F}}
+\newcommand{\alg}{\mathcal{A}}
+\newcommand{\varaalg}{\mathcal{F}}
+\newcommand{\dispart}{\mathcal{E}=\{ E_k \}_{k\in I}}
+\newcommand{\p}{\mathrm{p}}
+\newcommand{\preprob}{\tilde{\mathbb{P}}}
+\newcommand{\sigmaalg}{$\sigma$-algebra}
+\newcommand{\sigmaadd}{$\sigma$-additivity}
+\newcommand{\measurablespace}{$(\Omega,\mathcal{F})$}
+
+%%
+\author{S. Licciardi\thanks{simone.licciardi@mail.polimi.it}, PoliMI undergraduate}
+\date{\large Academic Year 2023-2024}
+\title{\large Notes on \\\LARGE \textbf{Probability} \\[.4\baselineskip]\large tratto dalle lezioni di \dots, Politecnico di Milano}
+
+\begin{document}
+%% Title page
+\pagenumbering{roman}
+\begin{titlepage}
+	\newgeometry{margin=2cm}
+	\thispagestyle{empty}
+	\maketitle
+\end{titlepage}
+%% TOC
+\setcounter{page}{2}
+\tableofcontents
+\newpage
+%% Body
+\pagenumbering{arabic}
+%\include{chapters/chapter_1.tex}
+\include{chapters/01_probability}
+\include{chapters/01_complements}
+
+\end{document}
