@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
 \usepackage{kantlipsum}
+\usepackage{realhats}
 %\usepackage{graphicx,float}
 %\usepackage{caption,subcaption}
 %\usepackage{multirow}
@@ -14,6 +15,7 @@
 %\usepackage{booktabs}
 %\usepackage[style=numeric,sorting=nty,backend=bibtex]{biblatex}
 
+\newtheorem{my_ex}{Exercise}
 \newtheorem{my_theorem}{Theorem}[section]
 \newtheorem{my_lemma}[my_theorem]{Lemma}
 \newtheorem{my_corollary}[my_theorem]{Corollario}
@@ -22,6 +24,7 @@
 \newtheorem{my_definition}[my_theorem]{Definizione}
 	\theoremstyle{remark}
 \newtheorem{my_remark}[my_theorem]{Remark}
+\newtheorem*{my_notes}{Notes}
 
 \newcommand{\salg}{\sigma\mathcal{A}}
 \newcommand{\varsalg}{\sigma\mathcal{F}}
@@ -35,9 +38,11 @@
 \newcommand{\measurablespace}{$(\Omega,\mathcal{F})$}
 
 %%
-\author{S. Licciardi\thanks{simone.licciardi@mail.polimi.it}, PoliMI undergraduate}
+\author{\hat[crown]{S.} Licciardi\thanks{simone.licciardi@mail.polimi.it}, PoliMI Undergraduate Student}
 \date{\large Academic Year 2023-2024}
-\title{\large Notes on \\\LARGE \textbf{Probability} \\[.4\baselineskip]\large tratto dalle lezioni di \dots, Politecnico di Milano}
+\title{\large Notes on \\\LARGE \textbf{Probability} \\[.4\baselineskip]\large from the lectures of 
+\par Matteo Gregoratti and Federico Bassetti, 
+\par Politecnico di Milano}
 
 \begin{document}
 
@@ -59,5 +64,6 @@
 
 % \include{chapters/01_probability}
 \include{chapters/01_complements}
+\include{chapters/99_exercises}
 
 \end{document}

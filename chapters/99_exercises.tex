@@ -1,0 +1,40 @@
+% 99_exercises.tex
+%! TeX root = ../main.tex
+
+\chapter*{Bassetti Unbound}
+\addcontentsline{toc}{chapter}{Exercises}
+
+\begin{my_ex}
+	Let $\Omega$ be a set and let $A \subset \Omega$ a subset from it. Then, show that $\{ A, A^\mathsf{c}, \emptyset, \Omega \}$ is a $\sigma$-algebra.
+\end{my_ex}
+\begin{my_notes}
+	This is the easiest nontrivial $\sigma$-algebra. It models a bet: the event may either happen or not (or nor could happen, that is the same as all the outcomes being realized). (??)
+\end{my_notes}
+
+\begin{my_ex}
+	Let $\{ \mathcal{F}_\alpha \}_{\alpha \in I}$ be a colletion of $\sigma$-algebras. Is $\bigcap_{\alpha \in I} \mathcal{F}_\alpha$ a $\sigma$-algebra. What about $\bigcup_{\alpha \in I} \mathcal{F}_\alpha$?
+\end{my_ex}
+\begin{my_notes}
+	This\footnote{The answer is that the first is, in fact, a $\sigma$-algebra, while the second not so, as it does not contain crossed unions and intersections.} justifies minimality arguments on the function $\sigma(\cdot)$. Read this \href{https://math.stackexchange.com/questions/54172/the-sigma-algebra-of-subsets-of-x-generated-by-a-set-mathcala-is-the-s/}{masterpiece}, this \href{https://groups.google.com/g/sci.math/c/DjVj6RiXOLs/m/PSMsTtfEnO8J}{essay} and this very general and technical \href{https://ncatlab.org/nlab/show/Moore+closure}{site} .
+\end{my_notes}
+
+\begin{my_ex}
+	Prove the well-definiteness of $\sigma(\mathcal{E})$ as the minimal $\sigma$-algebra containing $\mathcal{E}$.
+\end{my_ex}
+\begin{my_notes}[Sketch of proof]
+	Let $\Sigma(\mathcal{E})$ be the collection of all the $\sigma$-algebras containing the collection $\mathcal{E}$ of subsets of $\Omega$. (Prove that) $\Sigma(\mathcal{E})$ is not empty, and the family intersects to $\bigcap_{S\in\mathcal{E}}S = \sigma(\mathcal{E})$.
+\end{my_notes}
+
+\begin{my_ex}
+	Let $E_1$,$E_2$ be events of $\Omega$. Think of a sample space and construct a measure of probability $\mathbb{P} : \mathcal{P}(\Omega) \to \mathbb{R}$ such that the two events are independent and $\mathbb{P}(E_1)=\mathbb{P}(E_2)=\frac{1}{2}$.
+\end{my_ex}
+\begin{my_notes}
+	(??) % tip was to use uniform probability 
+\end{my_notes}
+
+\begin{my_ex}
+
+\end{my_ex}
+\begin{my_notes}
+	
+\end{my_notes}
