@@ -6,11 +6,14 @@
 % \begin{document}
 \section{Probability construction}
 
-Operatively, there are two ways of furnishing a (measure of) probability on a measurable space \measurablespace: it may be claimed or inferred. In the first case, its law is given \textit{a priori}, while in the second it is deducted \textit{a posteriori}, from the knowledge of the probability values on some elementary events, that is.
+Operatively, there are two ways of furnishing a (measure of) probability on a measurable space \measurablespace: it may be claimed or inferred. 
+In the first case, its law is given \textit{a priori}, while in the second it is deducted \textit{a posteriori}, from the knowledge of the probability values on some elementary events, that is.
 
-The first is common in applications such as Bayesian Statistics, where you make an hypothesis on the distribution and then test it, while the second is also characteristic of measure theory. The key difference lies in the fact that we either have complete or minimal information about the probability.
+The first is common in applications such as Bayesian Statistics, where you make an hypothesis on the distribution and then test it, while the second is also characteristic of measure theory. 
+The key difference lies in the fact that we either have complete or minimal information about the probability.
 
-In both cases some check are in order, as we need to ensure that the probability is \textit{coherent}. Note that in the second case, we also need to ensure that the one generated is unique, the minimal information is \textit{sufficient}, that is. 
+In both cases some check are in order, as we need to ensure that the probability is \textit{coherent}. 
+Note that in the second case, we also need to ensure that the one generated is unique, the minimal information is \textit{sufficient}, that is. 
 
 \subsection{Discrete setting}
 
@@ -44,13 +47,15 @@ Moreover, we have an explicit description of each event $E\in\sigma(\mathcal{E})
 \end{my_lemma}
  
 \begin{my_remark}
-	A special case worth mentioning is that of the atomic partition on a discrete $\Omega$. Here, the \sigmaalg  generated is $\mathcal{P}(\Omega)$ and the discrete probability density is commonly referred to as $p(\{ \omega \})=p_\omega$. By the precedent results, $p$ defines a unique agreeing probability $\mathbb{P}$ such that
+	A special case worth mentioning is that of the atomic partition on a discrete $\Omega$. 
+	Here, the \sigmaalg  generated is $\mathcal{P}(\Omega)$ and the discrete probability density is commonly referred to as $p(\{ \omega \})=p_\omega$. 
+	By the precedent results, $p$ defines a unique agreeing probability $\mathbb{P}$ such that
 	\begin{equation}
 		\mathbb{P} \left( E \right) = \sum_{\omega \in E} p_\omega \quad \text{ for all }E \subset \Omega.		
 	\end{equation}
 \end{my_remark}
 
-\subsection{General setting}
+\subsection{Carathéodory Theorem}
 
 For more general settings the short message is that Theorem \ref{disc_partition} holds, provided some conditions, while no explicit characterization like that of Lemma \ref{explicit_char} is possible.
 
@@ -76,7 +81,8 @@ We present a powerful theorem of measure theory, that does just that. It will al
 \begin{my_remark}
 	This version of the Carathéodory's Theorem is of theoretical interest and provides two results.
 	First, it shows that \textbf{existence} of a consistent extension is guaranteed just by requiring the coherence of $\preprob$ with the conditions that the define a probability: these are encoded in Definition \ref{proprob}.
-	Moreover, the theorem quantifies the idea that if $\preprob$, the information provided about $\mathbb{P}$ that is, is defined on a large enough collection, then its extension is \textbf{unique}. In particular, we require $\mathbb{P}$ to be given on an algebra, a much smaller collection than a \sigmaalg.
+	Moreover, the theorem quantifies the idea that if $\preprob$, the information provided about $\mathbb{P}$ that is, is defined on a large enough collection, then its extension is \textbf{unique}. 
+	In particular, we require $\mathbb{P}$ to be given on an algebra, a much smaller collection than a \sigmaalg.
 \end{my_remark}
 
 We can refine the result for practical purposes by exploiting the equivalence between $\sigma$-additivity and continuity\footnote{This result from measure theory is taken to be known and the details are out of the scope of these notes.}.
@@ -92,22 +98,35 @@ We can refine the result for practical purposes by exploiting the equivalence be
 	Then, there exists a unique probability $\mathbb{P}: \sigma ( \alg ) \to \mathbb{R}$ such that $\preprob$ and $\mathbb{P}$ agree on $\alg$.
 \end{my_lemma}
 \begin{my_remark}
-	The usefulness of this is that monotone continuity, that is showing a limit is $0$, is generally much easier than working on countable unions to arbitrary sets. It is of theoretical interest that this only holds if we use an algebra: as we will see, if it wasn't for this characterization weaker conditions on the collection (namely, that it is a $\pi$-system instead of an algebra) could be used.
+	The usefulness of this is that monotone continuity, that is showing a limit is $0$, is generally much easier than working on countable unions to arbitrary sets. 
+	It is of theoretical interest that this only holds if we use an algebra: as we will see, if it wasn't for this characterization weaker conditions on the collection (namely, that it is a $\pi$-system instead of an algebra) could be used.
 \end{my_remark}
 
-Another refinement is in order: the minimal information condition could be weaker. This is an application of the Monotone class theorem, and while we will not go into details, some more can be found \href{http://theanalysisofdata.com/probability/E_3.html}{here}.
+\subsection{Practical construction}
+
+An algebra is still a sizeable class: another refinement is in order.
 
 \begin{my_definition}[$\pi$-system]
-	A collection $\mathcal{C}$ is said to be a $\pi$-system if stable under finite intersection. Explicitly, if $A_1, \dots, A_n \in \mathcal{C}$ then $\bigcap^n_{i=1} A_i \in \mathcal{C}$.
+	A collection $\mathcal{C}$ is said to be a $\pi$-system if stable under finite intersection. Explicitly, if $A_1, \dots, A_n \in \mathcal{C}$ implies that $\bigcap^n_{i=1} A_i \in \mathcal{C}$.
 \end{my_definition}
 \begin{my_remark}
 	Operatively, it suffices to show that if $A,B \in \mathcal{C}$ then $A \cap B \in \mathcal{C}$ for finite intersection stability to hold, by inductive argument.
 \end{my_remark}
-\begin{my_lemma}[]
-	% pi-comparison
+\begin{my_lemma}
+	Let $\mathbb{P}_1$ and $\mathbb{P}_2$ be probabilities on $\sigma(\mathcal{C})$ and $\mathcal{C}$ be a $\pi$-system. If $\mathbb{P}_1$ and $\mathbb{P}_2$ agree on $\mathcal{C}$, then they agree on $\sigma(\mathcal{C})$.
 \end{my_lemma}
+\begin{my_remark}
+	The lemma is of practical interest. Evidently, it allows easier comparison between probabilities, as it suffices to check equality on a much smaller collection than the domain.
+	
+	Importantly, the lemma also furnishes sharp\footnote{Mathematical gibberish for ``minimal''} conditions for uniqueness in Theorem \ref{carathéorodory}: it allows us to define the pre-probability on a $\pi$-system containing $\Omega$, and deduce from that its unique extension.
+\end{my_remark}
+Admittedly, it is not as useful as going from a $\sigma$-algebra to an algebra though. The common practice is indeed to define the pre-probability on a $\pi$-system, extend the pre-probability to a semi-algebra, then to an algebra and only at this point apply Carathéodory. Let us present the necessary theoretical results.
 
-This theorem is not just about comparisons. It furnishes sharp\footnote{Mathematical gibberish for ``minimal''} conditions for the uniqueness in Theorem \ref{carathéorodory}: it requires the pre-probability to be defined just on a $\pi$-system containing $\Omega$, something weaker than an algebra.
+% see pdf in the wd.
+
+This is an application of the Monotone class theorem, and while we will not go into details, some more can be found \href{http://theanalysisofdata.com/probability/E_3.html}{here}.
+
+
 
 \section*{Borel's $\sigma$-algebra}
 
