@@ -6,23 +6,27 @@
 % \begin{document}
 \section{Probability construction}
 
-Operatively, there are two ways of furnishing a (measure of) probability on a measurable space \measurablespace: it may be claimed or inferred. 
-In the first case, its law is given \textit{a priori}, while in the second it is deducted \textit{a posteriori}, from the knowledge of the probability values on some elementary events, that is.
+Operatively, there are two ways of furnishing a (measure of) probability on a measurable space \measurablespace: we provide \textit{a priori} the complete description of it, or we deduct it from the information we have. That is, key difference is how much information about the probability we are starting with. The first is common in applications such as Bayesian Statistics, where you make an hypothesis on the distribution and then update it with experiments, while the second is recurrent in modelisation. 
 
-The first is common in applications such as Bayesian Statistics, where you make an hypothesis on the distribution and then test it, while the second is also characteristic of measure theory. 
-The key difference lies in the fact that we either have complete or minimal information about the probability.
+In both cases some check are in order, as we need to ensure that the information we have is \textit{coherent}, that is there is a probability which fits the given description, and \textit{sufficient} to uniquely charachterize the probability.
 
-In both cases some check are in order, as we need to ensure that the probability is \textit{coherent}. 
-Note that in the second case, we also need to ensure that the one generated is unique, the minimal information is \textit{sufficient}, that is. 
+We start with the complitely resolved case of discrete partitions, then move to theoretical results on general settings, and finally deal with the practical aspects of the matter. 
 
 \subsection{Discrete setting}
 
-Some results of this kind were produced already: we have dealt with the case of discrete partitions of the sample space $\Omega$.
-We quote such theorems.
+The case of discrete partitions of the sample space $\Omega$ is complitely resolved: that is we know everything about it with the bare minimal information. We state the theorems that allow and describe this kind of reasoning.
+
+\begin{my_remark}
+	\label{usefullness_partitions}
+	The reason why we care about partitions is that they model experiments where, at the end, only one of some states of the system is true. 
+	Think of rolling 4 dices, and being interested in the results of the first only. Then, only (and exactly) one the \textit{states} "the first dice rolled to $n$" can suceed!
+	Formally, that is equivalent to observing that even though $\omega \in \Omega$ describes the 4 results of the 4 rolls, that is it contains information we don't really care about (the other 3 rolls), we can partition the set according to the first result only. 
+	Importantly, the remaining structure of $\Omega$ is \textit{not} garbage: for example, partitioning for the first roll could just be the first part of answering "how likely is it that the second dice rolls to 3, given the first rolled to 1?".
+\end{my_remark}
 
 \begin{my_theorem}[Existence and Uniqueness]
 	\label{disc_partition}
-	Let $\dispart$ be a discrete partition of $\Omega$ and suppose that the function $\p:E_k \in \mathcal{E} \to p_k \in \mathbb{R}$ satisfies
+	Let $\dispart$ be a discrete\footnote{That is, it is at most countable: $I \subset \mathbb{N}$} partition of $\Omega$ and suppose that the function $\p:E_k \in \mathcal{E} \to p_k \in \mathbb{R}$ satisfies
 	\begin{subnumcases}{}
 		\sum_{k\in I} p_k=1 \label{normalization}
 		\\
@@ -30,25 +34,25 @@ We quote such theorems.
 	\end{subnumcases}
 	Then, there exist a unique probability $\mathbb{P}$ on $\sigma(\mathcal{E})$ such that $\mathbb{P}$ and $\p$ agree on $\mathcal{E}$. A function $\p$ with the properties (\ref{normalization}) and (\ref{positiveness}) of is called a discrete probability density.
 \end{my_theorem}
-(??) % add a remark about to explain why a partition is useful in first place.
 
-Morally, the probability density on a discrete partition can be extended with consistency to a unique probability on the generated \sigmaalg. 
-Moreover, in this setting we can describe explicitly each event $E\in\sigma(\mathcal{E})$ and its probability $\mathbb{P}(E)$.
+Morally, if the probability $p_k$ of the events of a discrete partition is known, we are guaranteed that there is a unique probability extending them with consistency to the generated $\sigma$-algebra. 
 
-\begin{my_lemma}
-	\label{explicit_char}
-	Let $\dispart$ be a discrete partition of $\Omega$. Then
+In this setting, some very operative results are also available: we can describe explicitly each event $E\in\sigma(\mathcal{E})$ and its probability $\mathbb{P}(E)$.
+\goodbreak\begin{my_lemma}
+	\label{explicit_char1}
+	Let $\dispart$ be a discrete partition of $\Omega$. Then,
 	\[
 		\sigma( \mathcal{E} ) = \left\{ \, \bigcup_{k \in J} E_k \, \text{ for }J \subset I \right\}.
 	\]
 \end{my_lemma}
 \begin{my_lemma}
-	Let $\p : E_k \in \mathcal{E} \to p_k \in \mathbb{R}$ be a discrete probability density. Then, if $\mathbb{P}$ is the probability defined in Theorem \ref{disc_partition},
+	\label{explicit_char2}
+	Let $\p : E_k \in \mathcal{E} \to p_k \in \mathbb{R}$ and $\mathbb{P} : \sigma(\mathcal{E}) \to \mathbb{R}$ be as is Theorem \ref{disc_partition}. Then,
 	\[
 		\mathbb{P} \left( \, \bigcup_{k \in J} E_k \,\right) = \sum_{k \in J} \p_k \quad \text{ for all }J \subset I.
 	\]
 \end{my_lemma}
- 
+% commento sul fatto che la chiave della semplicità della sigma algebra sulla partizione è che in non si considerano gli insiemi complementari da nessuna parte: questo semplifica molto i risultati visto che l'unione (o, quindi, l'intersezione) diventa del tutto sufficiente, DA SOLA, a descrivere la collezione! non solo, ma proprio il fatto che non dobbiamo aggiungere set dalla complementazione è ciò che ci permette di trovare le probabilità generiche, visto che trasforma la sigma additività da condizione di coerenza, a formale descrizione della collezione!
 \begin{my_remark}
 	A special case worth mentioning is that of the atomic partition on a discrete $\Omega$. 
 	Here, the $\sigma$-algebra generated is $\mathcal{P}(\Omega)$ and the discrete probability density is commonly referred to as $p(\{ \omega \})=p_\omega$. 
@@ -57,16 +61,12 @@ Moreover, in this setting we can describe explicitly each event $E\in\sigma(\mat
 		\mathbb{P} \left( E \right) = \sum_{\omega \in E} p_\omega \quad \text{ for all }E \subset \Omega.		
 	\end{equation}
 \end{my_remark}
-
-But $\mathbb{P}$ need not be given over just a single partition and, actually, since a probability is a very special kind of measure, it is not even necessary that the information about it is values! We will explain the matter thorugh examples, but first we state an handy result.
+% esempio è la probabilità uniforme, che per essere definita ha bisogno di addirittura uno spazio finito. In queste condizione, se la partizione è atomica e l'evento della partizione (l'atomo) ha prob uguale per ogni atomo, allora parliamo di prob uniforme. in questo caso, si ha che P(E)=#E/#\Omega
+Now, we want to show by examples that $\mathbb{P}$ need not be given over just a single partition. Actually, since a probability is a very special kind of measure, it is not even necessary that the information is about its values! We will explain the matter thorugh examples, but first we state an handy result.
 \begin{my_corollary}
 	\label{cond_partitions}
-	Let $\mathcal{E}=\{ E_k \}_{k\in I}$ be a partition of $\Omega$ and suppose that the function $\p:E_k \in \mathcal{E} \to p_k \in \mathbb{R}$ satisfies $\sum_{k\in I} p_k=1$ and $p_k\geq0$ for all $k \in I$. Moreover, let $\mathcal{F}=\{ F_h \}_{h\in J}$ and suppose that the function $\mathrm{q}_k:F_h \in \mathcal{F} \to q_{h\,|k} \in \mathbb{R}$ satisfies
-	\[
-		\sum_{h \in J} q_{h\,|k}=1 \quad \text{once $k$ is fixed, and } p_i > 0
-		\\
-		q_{h\,|k}\geq0 \quad \text{for all } k \in I \text{ and } h \in J.
-	\]
+	Let $\mathcal{E}=\{ E_k \}_{k\in I}$ be a partition of $\Omega$ and suppose that the function $\p:E_k \in \mathcal{E} \to p_k \in \mathbb{R}$ satisfies $\sum_{k\in I} p_k=1$ and $p_k\geq0$ for all $k \in I$. Moreover, let $\mathcal{F}=\{ F_h \}_{h\in J}$ be another partition and suppose for all $k$ such that $p_k > 0$ the function $q^{(k)}:F_h \in \mathcal{F} \to q_{h\,|k} \in \mathbb{R}$ satisfies $\sum_{h \in J} q_{h\,|k}=1$ and $q_{h\,|k}\geq0$ for all $h \in J$.
+
 	Then, there exist a unique probability $\mathbb{P}$ on $\sigma(\mathcal{E}\cup\mathcal{F})$ such that $\mathbb{P}$ and $\p$ agree on $\mathcal{E}$ and
 	\[
 		\mathbb{P}\left( F_h | E_k \right) = q_{h|k} \quad \text{for all } k \in I \text{ and } h \in J.
@@ -79,34 +79,39 @@ The result benefits some explaining.
 \end{my_remark}	
 \begin{my_remark}
 	\label{usefull_condpart}
-	The result states under which conditions, a tree such as the following contains enough information for the probability to be defined and unique.
-	(??)% image
-	Recall Remark 
-	(??) %\ref{usefull_part}. 
-	In probability, it is frequent to study the relationship between different states, and there lies the usefulness of this result as well. It guarantees that if we were given not only the probability of a state, but also the probability of another state \textit{in relation with} the first, then we can furnish consistently and uniquely the probability over combinations of all sorts of these states.
+	Recall Remark \ref{usefullness_partitions}. In proability, it is quite common to study the relationships between different states and this result guarantees that if we were given not only the probability of a state, but also the probability of another state \textit{in relation with} the first, then we can furnish consistently and uniquely the probability over combinations of all sorts of these states.
 \end{my_remark}
+A useful representation is that of a tree of events. Let us present it with an example.
 \begin{my_example}
-	
+	(??)% example of usage of this result
+	(??)% tree image
 \end{my_example}
 \begin{my_remark}
-	Recall Remark \ref{usefull_condpart}. A special case is that where the information correlating states is independence. In that case, we can do one of two things depending on the request of the problem. First, we can use the definition: that is put $\mathbb{P}(F_h \cap E_k)=\mathbb{P}(F_h)\mathbb{P}(E_k)$ and find the probabilities of the explicit partition in Remark \ref{real_part}. Then, apply Theorem \ref{disc_partition} in order to find $\mathbb{P}$ on every event. Second, we make use of the fact that for $\mathbb{P}(E_k)>0$ independence is equivalent to $\mathbb{P}(F_h|E_k)=\mathbb{P}(F_h)$. Once we establish all the conditional probabilities, by Theorem \ref{cond_partitions} we are guaranteed that the probability exists. Finding the values of $\mathbb{P}$ is then a matter of manipulating conditional probabilities.
-	%$\mathbb{P}(F_h | E_k)=\mathbb{P}(F_h)$.
+	By the precedent Remark, you understand that a special relationship correlating states is that of independence. In that case, we can do one of two things depending on the request of the problem. First, we can use the definition: that is we put $\mathbb{P}(F_h \cap E_k)=\mathbb{P}(F_h)\mathbb{P}(E_k)$, find the probabilities on the partition in Remark \ref{real_part} and then, apply Theorem \ref{disc_partition} and Lemmas \ref{explicit_char1},\ref{explicit_char2} to find $\mathbb{P}$. Second, we make use of the fact that for $\mathbb{P}(E_k)>0$ independence is equivalent to $\mathbb{P}(F_h|E_k)=\mathbb{P}(F_h)$. We establish all the conditional probabilities, and then apply Theorem \ref{cond_partitions} to show the existence of $\mathbb{P}$. Finding the values of $\mathbb{P}$ is then a matter of manipulating conditional probabilities.
 \end{my_remark}
 \begin{my_example}
-	
+	(??) % show way 1
+	(??) % show way 2
 \end{my_example}
-Moreover, this theorem allows us to easy the question of probability modelisation for repeated experiments. (??)
-% esercitazione di prov del 12 /3, discorso di greg su quando dire cge le prob delle entries sono aleatorie, allora anche il vettore esito lo è.
+Moreover, this theorem allows us to easy the question of probability modelisation for repeated experiments. 
+(??) % esercitazione di prov del 12 /3, discorso di greg su quando dire che le prob delle entries sono aleatorie, allora anche il vettore esito lo è.
+
+And now a final Remark on \textit{why} the discrete partition setting is solvable. 
+\begin{my_remark}
+	For the "partition" part, it all boils down to the fact that we only consider unions: the complementation is just the union of the other elements, and the intersection is the union of partition elements that are in all the sets. 
+	If now you add the "discrete" part, we not only describe everything as unions, but as at most countable unions: that is, complementation will be always well defined. 
+	Technically, if we considered an uncountable partition, even if $S$ was a countable union of some of its elements, then the complementary $S^\mathsf{c}$ would be an uncountable union. That is because an uncountable collection without countably many elements is still uncountable. That would make $S^\mathsf{c}$ untractable under \ref{explicit_char2}!
+\end{my_remark}
 
 \subsection{Carathéodory Theorem}
 
-For more general settings the short message is that Theorem \ref{disc_partition} holds, provided some conditions, while no explicit characterization like that of Lemma \ref{explicit_char} is possible.
+For more general settings the short message is that Theorem \ref{disc_partition} holds, provided some conditions, while no explicit characterization like that of Lemmas \ref{explicit_char1},\ref{explicit_char2} is possible.
 
-We present a powerful theorem of measure theory, that does just that. It will allow us to extend a \textit{pre-probability}, a function with some coherence that is defined on a collection smaller than a \sigmaalg , to a probability, in a unique fashion.
+We present a powerful theorem of measure theory, that does just that. It will allow us to extend a \textit{pre-measure}, a function with some coherence that is defined on a collection smaller than a $\sigma$-algebra, to a probability, in a unique fashion.
 
 \goodbreak\begin{my_definition}
 	\label{proprob}
-	Let $\alg$ be an algebra defined on $\Omega$. Then, $\preprob:\alg\to\mathbb{R}$ is a \textit{pre-probability} if
+	Let $\alg$ be an algebra defined on $\Omega$. Then, $\preprob:\alg\to\mathbb{R}$ is a \textit{pre-measure} if
 	\begin{enumerate}
 		\item $\preprob( \Omega ) = 1$ \hfill (Normalization)
 		\item $\preprob \left( \, \bigcup^n_{i=1} A_i \, \right) = \sum^n_i \preprob(A_i)$ for $A_i\in\alg$ \hfill (Additivity)
@@ -119,35 +124,41 @@ We present a powerful theorem of measure theory, that does just that. It will al
 
 \goodbreak\begin{my_theorem}[Carathéodory's Theorem]
 	\label{carathéorodory}
-	Let $\alg$ be an algebra defined on $\Omega$, and suppose that $\preprob : \alg \to \mathbb{R}$ is a pre-probability.	Then, there exists a unique probability $\mathbb{P}: \sigma ( \alg ) \to \mathbb{R}$ such that $\preprob$ and $\mathbb{P}$ agree on $\alg$.
+	Let $\alg$ be an algebra defined on $\Omega$, and suppose that $\preprob : \alg \to \mathbb{R}$ is a pre-measure.	Then, there exists a unique probability $\mathbb{P}: \sigma ( \alg ) \to \mathbb{R}$ such that $\preprob$ and $\mathbb{P}$ agree on $\alg$.
 \end{my_theorem}
 \begin{my_remark}
 	This version of the Carathéodory's Theorem is of theoretical interest and provides two results.
 	First, it shows that \textbf{existence} of a consistent extension is guaranteed just by requiring the coherence of $\preprob$ with the conditions that the define a probability: these are encoded in Definition \ref{proprob}.
 	Moreover, the theorem quantifies the idea that if $\preprob$, the information provided about $\mathbb{P}$ that is, is defined on a large enough collection, then its extension is \textbf{unique}. 
-	In particular, we require $\mathbb{P}$ to be given on an algebra, a much smaller collection than a \sigmaalg.
+	In particular, we require $\mathbb{P}$ to be given on an algebra, a much smaller collection than a $\sigma$-algebra.
 \end{my_remark}
 
-We can refine the result for practical purposes by exploiting the equivalence between $\sigma$-additivity and continuity\footnote{This result from measure theory is taken to be known and the details are out of the scope of these notes.}.
-
-\goodbreak\begin{my_lemma}[Carathéodory's Theorem, continuity characterization]
-	Let $\alg$ be an algebra defined on $\Omega$, and suppose that $\preprob:\alg\to\mathbb{R}$ satisfies
+We can refine the result for practical purposes by exploiting the equivalence between $\sigma$-additivity and continuity\footnote{This result from measure theory is taken to be known and the details are out of the scope of these notes.}. 
+Better: we aim at simplifing the checks on $\preprob$ rather than changing the statement of \ref{carathéorodory} and we do so by furnishing an equivalent set of conditions.
+\goodbreak\begin{my_lemma}[Pre-measure, Continuity characterization]
+	Let $\alg$ be an algebra defined on $\Omega$. Then $\preprob:\alg\to\mathbb{R}$ is a pre-measure if and only if
 	\begin{enumerate}
 		\item $\preprob(\Omega)=1$,
 		\item $\preprob \left( \, \bigcup^n_{i=1} A_i \, \right) = \sum^n_i \preprob(A_i)$,
 		\item if $A_i \, \big \downarrow \, \emptyset$, then $\preprob(A_i) \big \downarrow0$,
 	\end{enumerate}
 	where $A_n\in\alg$.
-	Then, there exists a unique probability $\mathbb{P}: \sigma ( \alg ) \to \mathbb{R}$ such that $\preprob$ and $\mathbb{P}$ agree on $\alg$.
 \end{my_lemma}
 \begin{my_remark}
-	The usefulness of this is that monotone continuity, that is showing a limit is $0$, is generally much easier than working on countable unions to arbitrary sets. 
-	It is of theoretical interest that this only holds if we use an algebra: as we will see, if it wasn't for this characterization weaker conditions on the collection (namely, that it is a $\pi$-system instead of an algebra) could be used.
+	The usefulness of this is that monotone continuity, that is showing a limit is $0$, is generally much easier than working on countable unions to arbitrary sets.
 \end{my_remark}
 
 \subsection{Practical construction, set structure}
 
-An algebra is still a sizeable class, making it hard to define $\mathbb{P}$. This is what Dynkin’s $\lambda-\pi$ Theorem was designed to simplify.
+The following two resources cover the topic well (and probably better than I can).
+\begin{itemize}
+	\item $\pi$-$\lambda$ Theorem and Monotone Class Theorem: \href{https://almostsuremath.com/2019/10/06/the-monotone-class-theorem/}{link}
+	\item Practical construction: Read the "extension.pdf" file in "assets" directory. In particular, recall continuity charchterization.
+\end{itemize}
+I will leave some operative remarks that integrate the resources, in the rest of the chapter.
+
+
+% An algebra is still a sizeable class, making it hard to define $\mathbb{P}$. This is what Dynkin’s $\lambda-\pi$ Theorem was designed to simplify.
 
 \begin{my_definition}[$\pi$-system]
 	Given a set $\Omega$, a collection of subsets $\mathcal{C}$ is a $\pi$-system if stable it is under finite intersection. Explicitly, if $A_1, \dots, A_n \in \mathcal{C}$ implies that $\bigcap^n_{i=1} A_i \in \mathcal{C}$.
@@ -156,108 +167,67 @@ An algebra is still a sizeable class, making it hard to define $\mathbb{P}$. Thi
 	Operatively, it suffices to show that $A \cap B \in \mathcal{C}$ whenever $A,B \in \mathcal{C}$, for $\mathcal{C}$ to be a $\pi$-system by inductive argument.
 \end{my_remark}
 \begin{my_definition}[$\lambda$-system]
-	Given a set $\Omega$, a collection of subsets $\mathcal{C}$ containing $\Omega$ is a $\lambda$-system if it is stable under (pairwise) disjoint countable union and proper difference. Explicitly, if $A_1, A_2, \dots \in \mathcal{C}$ and $A_i \cap A_j = \emptyset$ for all $i$,$j$ implies that $\bigcup_{i=1} A_i \in \mathcal{C}$ and if $A,B \in \mathcal{C}$ implies that $A \setminus B \in \mathcal{C}$.
+	Given a set $\Omega$, a collection of subsets $\mathcal{C}$ containing $\Omega$ is a $\lambda$-system if it is stable under (pairwise) disjoint countable union and complementation. Explicitly, if $A_1, A_2, \dots \in \mathcal{C}$ and $A_i \cap A_j = \emptyset$ for all $i$,$j$ implies that $\bigcup_{i=1} A_i \in \mathcal{C}$ and if .
 \end{my_definition}
 \begin{my_remark}
 	\label{proper_diff_stab}
-	Proper difference stability is more intelligible under the light of its equivalence with complementation. Recall that set difference can be charachterized as follows:
-	\[
-		A \setminus B = A \cap B^\mathsf{C},
-	\]
-	where complementation is taken with respect to a space containing both A and B. In particular, if $B \subset A$ the right hand side boils down to the complementation of $B$ with respect to $A$. Thus, that a collection is closed under proper difference is the same as complementation stability with respect to all $A \in \mathcal{C}$. Formally, for all $A$ in $\mathcal{C}$ it holds that $\mathcal{G}_A=\left \{B \in \mathcal{C} \text{ such that } B \subset A \right \}$ is stable under complementation. 
+	Some textbooks require proper difference stability, that is $A,B \in \mathcal{C}$ implies $A \setminus B \in \mathcal{C}$, instead of complementation.
 	
-	Importantly, proper difference stability implies complementation stability with respect to $\Omega$, since $\Omega \in \mathcal{C}$,.
+	We show that they are equivalent. The question boils down to the identity
+	\begin{equation}
+		\label{setdiff_compl_eq}
+		A \setminus B = A \cap B^\mathsf{C},		
+	\end{equation}
+	where complementation is taken with respect to a space containing both A and B. 
+	
+	Since $B \subset A$ the above equation yields that $B \setminus A$ is the complementation of $B$ with respect to $A$, then $\mathcal{C}$ being closed under proper difference is the same as $\mathcal{G}_A=\left \{B \in \mathcal{C} : B \subset A \right \}$, the collection of subsets of $A$ in $\mathcal{C}$, being closed under complementation for all $A \in \mathcal{C}$.	Importantly, this implies complementation stability with respect to $\Omega$.
+	
+	The converse, that complementation implies proper difference, holds as well. Suppose $B \subset A$. Then, $A \setminus B = A \cap B^\mathsf{C} = (A^\mathsf{C} \cup B)^\mathsf{C} \in \mathcal{C}$ by (\ref{setdiff_compl_eq}) and countable disjoint union.
 \end{my_remark}
+% \begin{my_remark}
+% 	Let us highlight the difference between a $\lambda$-system and a $\sigma$-algebra: in the former the countale unions need to be \textit{disjoint}, while in the latter not so. An example of collection that is closed under disjoint union, but not union, is
+% 	\[
+% 		\mathcal{C}=\left \{ \emptyset, \{a,b\},\{c,d\},\{a,c\},\{b,d\}, \{a,b,c,d\} \right \}
+% 	\]
+% \end{my_remark}
+% Let us investigate the relationship between a $\sigma$-algebra and these simpler systems. 
+% \begin{my_lemma}
+% 	A collection is a $\sigma$-algebra if and only if it is both a $\pi$-system and a $\lambda$-system.	
+% \end{my_lemma}
+% This is a much stronger relation than it looks, as the following theorem shows.
+% \begin{my_theorem}[$\lambda-\pi$ Theorem]
+% 	\label{lambda-pi}
+% 	If $\mathcal{C}$ is a $\pi$-system and $\mathcal{D}$ is a $\lambda$-system containing it, then $\sigma(\mathcal{C}) \subset \mathcal{D}$.
+% \end{my_theorem}
+% \begin{my_remark}
+% 	An equivalent statement would be that $\sigma(\mathcal{C}) = \lambda(\mathcal{C})$, where the latter is the smallest $\lambda$-system generated by $\mathcal{C}_\pi$. That this is unique follows from the intersection of $\lambda$-systems being a $\lambda$-system, that this exist from $\sigma{\mathcal{C}}$ being a $\lambda$-system.
+% \end{my_remark} 
+% % omitting the fact that this and the following theorem are also criterions that can be used to prove theoretical results. given a class, we show that it is a d-system, and a pi-sysyen instead of a sigma-algebra, which may be easier. the same goes for an algebra+ montone class.
+% A similar result to \ref{lambda-pi} is the following, where we weaken the requirements on $\mathcal{D}$ so that it is only required to be a monotone class, at the expense of stronger stability for $\mathcal{C}$.
+% \begin{my_theorem}[Monotone Class Theorem, set version]
+% 	\label{mct}
+% 	If $\mathcal{A}$ is an algebra and $\mathcal{M}$ is a monotone class containing it, then $\sigma(\mathcal{A}) \in \mathcal{M}$.	
+% \end{my_theorem}
+% \begin{my_remark}
+% 	Here, an equivalent statement would be that $ \sigma \left( \mathcal{A} \right) = \mathrm{M} \left( \mathcal{A} \right) $, where the latter is the smallest monotone system generated by $\mathcal{A}$ and existence and uniquess are as above.
+% \end{my_remark}
 \begin{my_remark}
-	Remark \ref{proper_diff_stab} highlight the difference between a $\lambda$-system and a $\sigma$-algebra: in the former the countale unions need to be \textit{disjoint}, while in the latter not so. An example of collection that is closed under disjoint union, but not union, is
-	\[
-		\mathcal{C}=\left \{ \emptyset, \{a,b\},\{c,d\},\{a,c\},\{b,d\}, \{a,b,c,d\} \right \}
-	\]
+	The Monotone Class Theorem furnishes a tool to show that a certain property is satisfied by all sets in a $\sigma$-algebra. It is sufficient to show that the $\pi$-system generating the $\sigma$-algebra satisfies it, and that the set satysfing it is a $\lambda$-system. We can show the same if the property is satisfied over an algebra and the class satisfying the property constitues a monotone class. This patter of reasoning is termed a \textit{monotone class argument}.
 \end{my_remark}
-Let us investigate the relationship between a $\sigma$-algebra and these simpler systems. 
-\begin{my_lemma}
-	A collection is a $\sigma$-algebra if and onl if it is both a $\pi$-system and a $\lambda$-system.	
-\end{my_lemma}
-This is a much stronger relation than it looks, as the following theorem shows.
-\begin{my_theorem}[$\lambda-\pi$ Theorem]
-	\label{lambda-pi}
-	If $\mathcal{C}$ is a $\pi$-system and $\mathcal{D}$ is a $\lambda$-system containing it, then $\sigma(\mathcal{C}) \in \mathcal{D}$.
-\end{my_theorem}
-\begin{my_remark}
-	An equivalent statement would be that $\sigma(\mathcal{C}) = \lambda(\mathcal{C})$, where the latter is the smallest $\lambda$-system generated by $\mathcal{C}_\pi$. That this exists unique follows from the intersection of $\lambda$-systems being a $\lambda$-system.
-\end{my_remark}
-A similar result to \ref{lambda-pi} is the following, where we weaken the requirements on $\mathcal{D}$ so that it is only required to be a monotone class, at the expense of stronger stability for $\mathcal{C}$.
-\begin{my_theorem}[Monotone Class Theorem, set version]
-	\label{mct}
-	If $\mathcal{A}$ is an algebra and $\mathcal{M}$ is a monotone class containing it, then $\sigma(\mathcal{A}) \in \mathcal{M}$.	
-\end{my_theorem}
-\begin{my_remark}
-	Here, an equivalent statement would be that $ \sigma \left( \mathcal{A} \right) = \mathrm{M} \left( \mathcal{A} \right) $, where the latter is the smallest monotone system generated by $\mathcal{A}$ and existence and uniquess are as above.
-\end{my_remark}
-\begin{my_remark}
-	One of the main applications of the Monotone Class Theorem is that of showing that certain property is satisfied by all sets in an $\sigma$-algebra, generally starting by the fact that the field generating the $\sigma$-algebra satisfies such property and that the sets that satisfies it constitutes a monotone class.
-\end{my_remark}
-% example here would fit well.
-The following is an immediate application of Theorem \ref{carathéorodory} or \ref{mct} equivalently.
-\begin{my_lemma}
-	Let $\mathbb{P}_1$ and $\mathbb{P}_2$ be probabilities on $\sigma(\mathcal{C})$ and $\mathcal{C}$ be a $\pi$-system. If $\mathbb{P}_1$ and $\mathbb{P}_2$ agree on $\mathcal{C}$, then they agree on $\sigma(\mathcal{C})$.
-\end{my_lemma}
-\begin{my_remark}
-	The lemma is of practical interest. Evidently, it allows easier comparison between probabilities, as it suffices to check equality on a much smaller collection than the domain. Importantly, the lemma also furnishes sharp\footnote{Mathematical gibberish for ``minimal''} conditions for uniqueness in Theorem \ref{carathéorodory}: it allows us to define the pre-probability on just a $\pi$-system containing $\Omega$, and deduce from that its unique extension.
-\end{my_remark}
+% % example here would fit well.
+% The following is an immediate application of Theorem \ref{carathéorodory} or \ref{mct} equivalently.
+% \begin{my_lemma}
+% 	Let $\mathbb{P}_1$ and $\mathbb{P}_2$ be probabilities on $\sigma(\mathcal{C})$ and $\mathcal{C}$ be a $\pi$-system. If $\mathbb{P}_1$ and $\mathbb{P}_2$ agree on $\mathcal{C}$, then they agree on $\sigma(\mathcal{C})$.
+% \end{my_lemma}
+% \begin{my_remark}
+% 	The lemma is of practical interest. Evidently, it allows easier comparison between probabilities, as it suffices to check equality on a much smaller collection than the domain. Importantly, the lemma also furnishes sharp\footnote{Mathematical gibberish for ``minimal''} conditions for uniqueness in Theorem \ref{carathéorodory}: it allows us to define the pre-measure on just a $\pi$-system containing $\Omega$, and deduce from that its unique extension.
+% \end{my_remark}
 
-\subsection{Practical construction of probability}
+% \subsection{Practical construction of probability}
 
-This continues the precedent section, where we have shown how to divide the construction of the sigma algebra into its components. Now we  set as objective that of showing the passages of the most common practice in probability construction: that of defining the pre-probability on a $\pi$-system, extending it to a semi-algebra, and then to an algebra in order to apply Carathéodory. That of going from the $\pi$-system to the algebra operatively. 
+% This continues the precedent section, where we have shown how to divide the construction of the sigma algebra into its components. Now we  set as objective that of showing the passages of the most common practice in probability construction: that of defining the pre-measure on a $\pi$-system, extending it to a semi-algebra, and then to an algebra in order to apply Carathéodory. That of going from the $\pi$-system to the algebra operatively. 
 
 % \href{http://theanalysisofdata.com/probability/E_3.html}{here}.
 
-
-
-
-% see pdf in the wd.
-
-
-
-\section*{Borel's $\sigma$-algebra}
-
-\section*{$\sigma$-algebra on Bernoulli Space}
-
-% \end{document}
-
-
-%% mwe stuff:
-
-% \documentclass[a4paper, 11pt]{article}
-
-% \usepackage[english]{babel}
-% \usepackage[hmargin=2cm,vmargin=2cm]{geometry}
-% \usepackage{amsmath,amssymb,amsthm}
-% \usepackage{cases}
-% \usepackage{xcolor}
-% \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
-
-% \newtheorem{my_theorem}{Theorem}[section]
-% \newtheorem{my_lemma}[my_theorem]{Lemma}
-% \newtheorem{my_corollary}[my_theorem]{Corollario}
-% \newtheorem{my_property}[my_theorem]{Proprietà}
-% 	\theoremstyle{definition}
-% \newtheorem{my_definition}[my_theorem]{Definizione}
-% 	\theoremstyle{remark}
-% \newtheorem{my_remark}[my_theorem]{Remark}
-
-% \newcommand{\salg}{\sigma\mathcal{A}}
-% \newcommand{\varsalg}{\sigma\mathcal{F}}
-% \newcommand{\alg}{\mathcal{A}}
-% \newcommand{\varaalg}{\mathcal{F}}
-% \newcommand{\dispart}{\mathcal{E}=\{ E_k \}_{k\in I}}
-% \newcommand{\p}{\mathrm{p}}
-% \newcommand{\preprob}{\tilde{\mathbb{P}}}
-
-% \newcommand{\sigmaalg}{$\sigma$-algebra}
-% \newcommand{\sigmaadd}{$\sigma$-additivity}
-% \newcommand{\measurablespace}{$(\Omega,\mathcal{F})$}
-
-% \setcounter	{footnote}	{1}
-% \author{S. Licciardi\footnote{simone.licciardi@mail.polimi.it}, PoliMI undergraduate}
-% \date{\large Anno accademico 2023-2024}
+% \section*{Borel's $\sigma$-algebra}
+% \section*{$\sigma$-algebra on Bernoulli Space}

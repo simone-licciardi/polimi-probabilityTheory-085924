@@ -33,8 +33,56 @@
 \end{my_notes}
 
 \begin{my_ex}
-
+	Let $\Omega=\mathbb{N}$. Show that $\mathrm{p}(\{n\})=\theta^n(1-\theta)$ for all $n\in\mathbb{N}$ is a discrete probability density. That is, show that it is coherent enough for a probability extending it to $\mathcal{P}(\mathbb{N})$ to exist.  
 \end{my_ex}
 \begin{my_notes}
-	
+	(??)
 \end{my_notes}
+
+\begin{my_ex}
+	Let $E_1$,$E_2$ be independent events on $\Omega$ such that $\mathrm{p}(E_1)=\mathrm{p}(E_2)=\frac{1}{2}$. Determine the $sigma$-algebra, and find the probability $\mathbb{P}$ on this space consistent with the two values of $\mathrm{p}$.
+\end{my_ex}
+\begin{my_ex}
+	% esercizio finale esercitazione 12 / 3
+\end{my_ex}
+\begin{my_remark}
+	These are some examples of probability modelization Note that $\Omega$ is basically irrelevant. Here independence, a property \textit{of the probability}\footnote{Independence and conditioal probabilities are the charachteristic that really distinguish a probability from a measure.}, furnishes the necessary information for $\mathbb{P}$ to be defined uniquely. It allows us to work in a context of minimal information, by relating different partitions (that is, states).
+\end{my_remark}
+
+\begin{my_ex}[Jacod Protter, 7.1]
+	\label{ex_jp_7_1}
+	
+\end{my_ex}
+\begin{my_remark}
+	The idea is that only finitely many disjoint events can have probability $\mathbb{P}(E) \leq \alpha$. That is all infinite sequences (convergent or divergent doesn't really matter, as we can restrict ourselves to the $\lim \sup$) need to tend to zero.
+\end{my_remark}
+
+\begin{my_ex}[Jacod Protter, 7.2]
+	
+\end{my_ex}
+\begin{my_remark}
+	\label{ex_jp_7_2}
+	Same idea as in \ref{ex_jp_7_1}, but the fact that here we also apply results about cardinality. That is we group events by having a probability larger than $\frac{1}{n}$ and then use 7.1 to show that their cardinality need be discrete, as the whole collection is countable union of finite collections.
+\end{my_remark}
+
+\begin{my_ex}[Jacod Protter, 7.10]
+	
+\end{my_ex}
+\begin{my_remark}
+	This is an analytical result, but shows that the definition of discrete random variables is coherent with its charachterization in terms of cumulative density function. 
+	
+	To prove the result, one could create a bijection between $\mathbb{N}$ and the set of jump discontinuities $\mathbb{D}$, by using monotonicity and order on reals.
+	A more instructive approach, though, is that of \ref{ex_jp_7_2}. We consider for each $n$ the set
+	\[ 
+		D_n = 
+		\left\{
+			x_0 \in [0,1] : 
+			\text{ in } x_0 \text{ is located a jump discontinuity larger than } 
+			\frac{1}{n}
+		\right\}.
+	\]
+	By boundedness of $[0,1]$, $D_n$ need be finite. Then, $\bigcup_{n\in\mathbb{N}} D_n$ is discrete. 
+	
+	Analyitically, you could also show that removable discontinuities need be discrete. See \href{run:assets/removable_disc.pdf}{here} for further considerations. This does not have direct applications in probability.
+	% ISSUE WITH HREF^
+\end{my_remark}
