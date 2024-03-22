@@ -83,6 +83,82 @@
 	\]
 	By boundedness of $[0,1]$, $D_n$ need be finite. Then, $\bigcup_{n\in\mathbb{N}} D_n$ is discrete. 
 	
-	Analyitically, you could also show that removable discontinuities need be discrete. See \href{run:assets/removable_disc.pdf}{here} for further considerations. This does not have direct applications in probability.
+	Analitically, you could also show that removable discontinuities need be discrete. See \href{run:assets/removable_disc.pdf}{here} for further considerations. This does not have direct applications in probability.
 	% ISSUE WITH HREF^
 \end{my_remark}
+
+\begin{my_ex}
+	Let
+	\[
+		F(x)=
+		\begin{cases}
+			0 & \text{if } x \leq 0 \\
+			1-e^{-\lambda x} & \text{if } x > 0.
+		\end{cases}	
+	\]
+	Show that this is a CDF. Does there exist, and if so, is it unique, the distribution $P$ that generates $F$? If it exists and is unique, find it.
+	
+	This distribution is denoted by $\mathcal{E}(\lambda)$ and is called the \textit{negative exponential} distribution.
+	\end{my_ex}
+	\begin{my_remark}
+	For $0<a<b<+\infty$,
+	\[
+		P((a,b]) = e^{-a} - e^{-b}.	
+	\]
+	\end{my_remark}
+	
+	\begin{my_ex}
+	Find an example of $X$ and $Y$ random variables from a measurable space such that $P_X = P_Y$ but $P(X=Y) \neq 1$.
+	\end{my_ex}
+	\begin{my_remark}
+	Start by setting $(\Omega_1,\mathcal{F}_1,\mathbb{P}_1)=(\Omega_2,\mathcal{F}_2,\mathbb{P}_2)$. Then, observe that
+	\[
+		\mathbb{P} \{ X = Y \} = \mathbb{P} \{ \omega : X( \omega ) =Y( \omega ) \} = \mathbb{P} \{ \omega : X( \omega ) = t, Y( \omega ) = t, \text{ for } t \in \mathbb{R} \}
+	\]
+	and comparatively,
+	\[
+		P_X = P_Y \implies \mathbb{P} \{ X \in A \} = \mathbb{P} \{ Y \in A \},
+	\]
+	for every $A \in \mathcal{B}$.
+	
+	In other words, the first condition requires that the random variables have indistinguishable (probabilistically) preimages, while the second condition only requires that the probability of preimage sets be equal: the identity in the first case is element-wise, in the second, it's about the law.
+	
+	Idea: The symmetry of the law of $X$ and $Y$ produces structures indistinguishable by the law but with different relations.
+	
+	Solution: For $\Omega = \{a,b,c\}$ with $\mathbb{P}(\{a\})=\mathbb{P}(\{c\})=\frac{1}{4}$ and $\mathbb{P}(\{b\})=\frac{1}{2}$, and $X: (a,b,c)\to(1,0,-1)$, $Y: (a,b,c)\to(-1,0,1)$, the two random variables will be symmetric, fulfilling the required condition. Moreover, if $\Omega$ contains only $2$ elements, then $P\{X=Y\}=0$.
+	\end{my_remark}
+	
+	\begin{my_ex}
+	Let $U(0,1):(\Omega,\mathcal{F},\mathbb{P}) \to (\mathbb{R},\mathcal{B})$ be the random variable with a uniform distribution between $0$ and $1$.
+	Explicitly,
+	\[
+		F_U(x)=
+		\begin{cases}
+			0 & \text{if } x < 0 \\
+			x & \text{if } 0 \leq x < 1 \\
+			1 & \text{if } x \geq 1.
+		\end{cases}	
+	\]
+	Find the distribution of
+	\[
+		X : 
+		\omega 
+		\in (\Omega,\mathcal{F},\mathbb{P}) 
+		\to  
+		- \log ( U( \omega ) ) \mathbb{1} \{U( \omega ) > 0\} 
+		\in (\mathbb{R},\mathcal{B}).	
+	\]
+	\end{my_ex}
+	\begin{my_remark}
+	The problem of finding the distribution of a random variable $Y$ can be approached in two ways:
+	\begin{enumerate}
+		\item If $Y$ is discrete, it suffices to find the the PMF, i.e. determine the support $S$ first and then the value $\mathbb{P} (X = s)$ for each $s \in S$. $P_X$ is the image law.
+		\item If $Y$ is not discrete, it is not possible to describe $P_X$ by finding its value on atoms. It is necessary to find its value on a $\pi$-system. Often, this means finding the CDF $F_X$.
+	\end{enumerate}
+	In this case, we obviously adopt the second approach.
+	
+	Idea: See the function as the transformation of $U$ through a function $t$.
+	
+	Idea: Work with the monotonically increasing and invertible composite function to determine the interval for which you want to find the preimage with respect to $U$, and then solve using $F_U$.
+	\end{my_remark}
+	
