@@ -3,10 +3,12 @@
 
 \chapter{Esperimenti congiunti}
 
-Supponiamo di svolgere due esperimenti aleatori diversi, rappresentati dai due spazi $\left( \Omega_1, \mathcal{F}_1, \mathbb{P}_1 \right)$ e $\left( \Omega_2, \mathcal{F}_2, \mathbb{P}_2 \right)$. 
-Per fare previsioni, è del tutto lecito cercare di modellizzarli complessivamente come un solo esperimento, detto "congiunto".
+\section{Prodotto di spazi di probabilità}
 
-\subsection{Spazio prodotto}
+Supponiamo di svolgere due esperimenti aleatori diversi, rappresentati dai due spazi di probabilità $\left( \Omega_1, \mathcal{F}_1, \mathbb{P}_1 \right)$ e $\left( \Omega_2, \mathcal{F}_2, \mathbb{P}_2 \right)$. 
+Per fare previsioni, è del tutto lecito cercare di modellizzarli complessivamente come un solo esperimento, detto \textit{congiunto}. Per produrre uno spazio di probabilità, prima costruiremo uno spazio strutturato, e poi introdurremo una misura. 
+
+\subsection{Prodotto di spazi misurabili}
 Partiamo dall'insieme degli esiti $\Omega$: che nel primo esperimento si verifichi un certo esito e nel secondo un altro è del tutto equivalente al verificarsi di un esito "bidimensionale" che contenga come prima coordinata l'esito del primo esperimento e come seconda coordinata l'esito del secondo. 
 In altri termini, $\Omega$ è in bigezione con $\Omega_1 \times \Omega_2$: quindi, scegliamo proprio il prodotto per rappresentare l'esperimento congiunto:
 \[
@@ -98,7 +100,7 @@ Ma $\mathcal{F}_1 \otimes \mathcal{F}_2$ contiene anche insiemi più complessi: 
 \par Infine, alcune considerazioni. In primo luogo, quanto visto può essere facilmente esteso a più di due spazi procedendo iterativamente.
 \par Inoltre, un risultato notevole è che definendo la $\sigma$-algebra di Borel di $\mathbb{R}^n$ come quella generata dalla topologia, e cioè $\mathcal{B}\left(\mathbb{R}^n\right) \defeq \sigma(\mathcal{T}_\mathbb{R^n})$, si ottiene che $\otimes^n \mathcal{B}(\mathbb{R}) = \mathcal{B}\left(\mathbb{R^n}\right)$. Questo conferma la buona definizione dello spazio prodotto e, per le prossime sezioni, motiva il fatto che comunemente i vettori di variabili aleatorie siano definiti su $\left(\mathbb{R}^n,\mathcal{B}(\mathbb{R}^n)\right)$.
 
-\subsection{Misura di Probabilità prodotto}
+\subsection{Prodotto di misure di probabilità}
 Finora, le scelte sono state fatte in maniera obbligata: se avessimo considerato oggetti diversi da $\times \Omega_i$ e $\otimes \mathcal{F}_i$ la descrizione dello spazio misurabile sarebbe stata logicamente equivalente\footnote{E cioè tutto sarebbe stato identico ai fini modellistici, "modulo" una bigezione.}, o avrebbe perso di flessibilità o di informazione.
 
 Per la misura di probabilità $\mathbb{P}$ su questo spazio, non avremo lo stesso lusso: infatti, l'unico requisito che possiamo imporre è quello di consistenza con gli spazi di partenza. 
@@ -152,16 +154,20 @@ Questo conferma la buona posizione della regola
 \end{proof}
 Ovviamente, anche in questo caso tutto si può estendere a più di due spazi iterativamente.
 
-\subsection{Vettori aleatori prodotto}
+\section{Vettori aleatori e prodotto di spazi}
 
-Rimangono da introdurre le variabili aleatorie su o da spazi prodotto, e per farlo cerchiamo di stabilire dei criteri di misurabilità.
+Rimangono da introdurre le variabili aleatorie su o da spazi prodotto. Per farlo, in primo luogo stabiliamo dei criteri di misurabilità. Poi, discuteremo un criterio di indipendenza e infine troveremo un regola computazionale per il valore atteso.
 
-La situazione più semplice, quella in cui date delle variabili aleatorie definite sullo stesso spazio, ci chiediamo come si comporta il loro vettore, è stata già incontrata nel caso di vettori aleatori reali: il vettore era misurabile se e solo lo erano le componenti. A conferma\footnote{Che il criterio valesse per i vettori reali lo rende \textit{desiderabile} in generale} della buona definizione dello spazio prodotto, questa proprietà continua a valere.
+\subsection{Misurabilità}
+
+La situazione più semplice, quella in cui date delle variabili aleatorie definite sullo stesso spazio ci chiediamo come si comporta il loro vettore, è stata già incontrata nel caso di vettori aleatori reali: il vettore era misurabile se e solo lo erano le componenti. 
+A conferma\footnote{Che il criterio valesse per i vettori reali lo rende \textit{desiderabile} in generale} della buona definizione dello spazio prodotto, questa proprietà continua a valere.
 \begin{my_lemma}[Misurabilità delle componenti]
 	Per $X: \Omega \to E$, $Y: \Omega \to E$, si ha che $X:(\Omega,\mathcal{A}) \to (E,\mathcal{E})$ e $Y:(\Omega,\mathcal{A}) \to (E,\mathcal{F})$ sono misurabili se e solo se lo è $(X,Y):(\Omega,\mathcal{A}) \to (E \times F,\mathcal{E} \otimes \mathcal{F})$.
 \end{my_lemma}
 
-La seconda casistica, quella in cui il dominio è uno spazio prodotto, è più delicata e l'implicazione vale solo in un verso. Per fissare le idee, consideriamo solo un caso.
+La seconda casistica, quella in cui il dominio è uno spazio prodotto, è più delicata e l'implicazione vale solo in un verso. 
+Per fissare le idee, consideriamo solo un caso.
 \begin{my_lemma}[Misurabilità delle restrizioni]
 	Sia $X : (\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2) \to (\mathbb{R}, \mathcal{B}(\mathbb{R}))$ un vettore aleatorio. Allora, la restrizione
 	\[
@@ -169,9 +175,11 @@ La seconda casistica, quella in cui il dominio è uno spazio prodotto, è più d
 	\]
 	è misurabile per ogni $\omega_2 \in \Omega_2$ rispetto a $\mathcal{F}_1$.
 \end{my_lemma}
-Questa è solo una condizione necessaria e non un criterio per la misurabilità: non vale l'inverso. Esplicitamente, la misurabilità di $X(\cdot,\omega_2)$ e $X(\omega_1, \cdot)$ rispetto ad ogni $\omega_1 \in \Omega_1$ e $\omega_2 \in \Omega_2$ non implica quella del vettore (come ci si potrebbe aspettare\dots).
+Questa è solo una condizione necessaria e non un criterio per la misurabilità: non vale l'inverso. 
+Esplicitamente, la misurabilità di $X(\cdot,\omega_2)$ e $X(\omega_1, \cdot)$ rispetto ad ogni $\omega_1 \in \Omega_1$ e $\omega_2 \in \Omega_2$ non implica quella del vettore (come ci si potrebbe aspettare\dots).
 
-Ciò detto il risultato caratterizza gli insiemi misurabili dello spazio prodotto: se $C \in \otimes \mathcal{F}_i$ allora $X = \mathbb{1}_C$ è misurabile, la restrizione $\mathbb{1}_C(\boldsymbol{\cdot},\omega_2)$ è misurabile, e la sezione $C_1(\omega_2)$ è un evento\footnote{Questo prova quanto visto nella regola per computare $\otimes \mathbb{P}$}. In altri termini, tutte le "sezioni" di un insieme misurabile nello spazio prodotto sono misurabili rispetto agli spazi marginali.
+Ciò detto il risultato caratterizza gli insiemi misurabili dello spazio prodotto: se $C \in \otimes \mathcal{F}_i$ allora $X = \mathbb{1}_C$ è misurabile, la restrizione $\mathbb{1}_C(\boldsymbol{\cdot},\omega_2)$ è misurabile, e la sezione $C_1(\omega_2)$ è un evento\footnote{Questo prova quanto visto nella regola per computare $\otimes \mathbb{P}$}. 
+In altri termini, tutte le "sezioni" di un insieme misurabile nello spazio prodotto sono misurabili rispetto agli spazi marginali.
 
 \subsection{Criterio di Indipendenza}
 
@@ -180,8 +188,10 @@ Ora \textit{accendiamo} le variabili aleatorie: se ognuno di questi spazi fosse 
 \[
 	X=(X_1,\dots,X_n) : \Omega \to E_1 \times \dots \times E_n.
 \]
-Ora facciamo un ragionamento modellistico: che gli spazi iniziali considerati congiuntamente fossero indipendenti significa che la conoscenza di un evento su uno non influenza le predizioni di un evento sull'altro. 
+
+Facciamo un ragionamento modellistico: che gli spazi iniziali considerati congiuntamente fossero indipendenti significa che la conoscenza di un evento su uno non influenza le predizioni di un evento sull'altro. 
 Introducendo le variabili aleatorie, lasciamo la struttura delle dipendenze inalterata, quindi sarebbe desiderabile che la conoscenza di un evento su uno spazio immagine non influenzasse le previsioni degli eventi sugli altri spazi immagine. 
+
 In altri termini, se le definizioni fossero ben poste dovremmo avere l'indipendenza delle variabili aleatorie, e cioè (nel caso $n=2$)
 \[
 	P_{(X_1,X_2)} (E_1 \times E_2) = \mathbb{P} \{X_1 \in E_1, X_2 \in E_2 \} = \mathbb{P} \{X_1 \in E_1\} \mathbb{P} \{X_2 \in E_2 \} = P_{X_1} (E_1) P_{X_2} (E_2).
@@ -196,11 +206,9 @@ Questo è confermato dal seguente risultato, per cui vale anche l'inverso: se le
 		P_{(X,Y)} = P_X \otimes P_Y.	
 	\end{equation}
 \end{my_lemma}
-A livello operativo, questo risultato ha due conseguenze. 
+A livello operativo, questo risultato ha due conseguenze. In primo luogo, è un criterio per stabilire se due variabili aleatorie sono indipendenti: è necessario e sufficiente che la probabilità congiunta fattorizzi nelle probabilità marginali per ogni scelta di eventi negli spazi di arrivo.
 
-In primo luogo, è un criterio per stabilire se due variabili aleatorie sono indipendenti: è necessario e sufficiente che la probabilità congiunta fattorizzi nelle probabilità marginali per ogni scelta di eventi negli spazi di arrivo.
-
-La seconda è che permette di provare il seguente risultato, che a sua volta conferma che è sufficiente informare sulla legge di ogni variabile $X_i$ e dire che sono indipendenti perchè esista una variabile aleatoria nello spazio prodotto con queste caratteristiche.
+La seconda è che permette di provare il seguente lemma, che a sua volta conferma che è sufficiente informare sulla legge di ogni variabile $X_i$ e dire che sono indipendenti perchè esista un'unica variabile aleatoria nello spazio prodotto con queste caratteristiche.
 
 \begin{my_lemma}
 	Siano $X_i : \Omega \to (E_i, \mathcal{E}_i, P_i)$ variabili aleatorie. Allora, il vettore $X=(X_1,\dots,X_n):\Omega \to (\times E_i, \otimes \mathcal{E}_i, \otimes P_i)$ è tale che 
@@ -217,5 +225,25 @@ Lasciamo in appendice al capitolo la dimostrazione di \ref{equival_indip}.
 \end{proof}
 
 \subsection{Teorema di Fubini-Tonelli}
+
+Tornando al caso di variabili aleatorie definite sul prodotto di spazi, il calcolo del valore atteso diventa un'estensione dell'integrale multivariabile. 
+Operativametne, potremmo ragionare in termini di integrale di Riemann multivariabile ma, come vedremo, ha più senso ricondursi all'integrale astratto in una sola variabile, e solo a quel punto impiegare l'integrale di Riemann.
+
+In particolare, sotto positività o integrabilità, è possibile calcolare l'integrale sullo spazio prodotto come un integrale iterato su ognuno degli spazi di partenza (e senza considerare l'ordine di integrazione).
+
+\begin{my_theorem}[Fubini]
+	Sia $X:(\times \Omega_i, \otimes \mathcal{F}_i, \otimes \mathbb{P}_i) \to E$ una variabile aleatoria. Allora se $X \in L^1(otimes \mathbb{P}_i)$ vale che
+	??
+\end{my_theorem}
+
+In particolare, è sufficiente che valga la condizione ?? 
+%check corollary in https://sites.math.washington.edu/~morrow/335_12/fubini.pdf
+
+\begin{my_theorem}[Tonelli]
+	Sia $X:(\times \Omega_i, \otimes \mathcal{F}_i, \otimes \mathbb{P}_i) \to E$ una variabile aleatoria. Allora se $X \leq 0$ vale che
+	??	
+\end{my_theorem}
+
+Il teorema di Tonelli ha ipotesi più blande e dimostra Fubini scomponendo la funzione in parte positiva e negativa.
 
 % mostrare che le componenti di X r.ve. sono indipendenti
