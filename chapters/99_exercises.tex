@@ -126,9 +126,9 @@
 	Idea: The symmetry of the law of $X$ and $Y$ produces structures indistinguishable by the law but with different relations.
 	
 	Solution: For $\Omega = \{a,b,c\}$ with $\mathbb{P}(\{a\})=\mathbb{P}(\{c\})=\frac{1}{4}$ and $\mathbb{P}(\{b\})=\frac{1}{2}$, and $X: (a,b,c)\to(1,0,-1)$, $Y: (a,b,c)\to(-1,0,1)$, the two random variables will be symmetric, fulfilling the required condition. Moreover, if $\Omega$ contains only $2$ elements, then $P\{X=Y\}=0$.
-	\end{my_remark}
+\end{my_remark}
 	
-	\begin{my_ex}
+\begin{my_ex}
 	Let $U(0,1):(\Omega,\mathcal{F},\mathbb{P}) \to (\mathbb{R},\mathcal{B})$ be the random variable with a uniform distribution between $0$ and $1$.
 	Explicitly,
 	\[
@@ -148,8 +148,8 @@
 		- \log ( U( \omega ) ) \mathbb{1} \{U( \omega ) > 0\} 
 		\in (\mathbb{R},\mathcal{B}).	
 	\]
-	\end{my_ex}
-	\begin{my_remark}
+\end{my_ex}
+\begin{my_remark}
 	The problem of finding the distribution of a random variable $Y$ can be approached in two ways:
 	\begin{enumerate}
 		\item If $Y$ is discrete, it suffices to find the the PMF, i.e. determine the support $S$ first and then the value $\mathbb{P} (X = s)$ for each $s \in S$. $P_X$ is the image law.
@@ -160,5 +160,77 @@
 	Idea: See the function as the transformation of $U$ through a function $t$.
 	
 	Idea: Work with the monotonically increasing and invertible composite function to determine the interval for which you want to find the preimage with respect to $U$, and then solve using $F_U$.
-	\end{my_remark}
-	
+\end{my_remark}
+
+\begin{my_ex}[JP, 9.5]
+	%
+\end{my_ex}
+\begin{my_remark}
+	This shows that the role of e.v. on a class of functions is similar to that of the probability on a $\sigma$-algebra, a case which can be found for $X=1$.
+\end{my_remark}
+
+\begin{my_ex}
+	Consider the function $Q:\mathcal{F}\to\mathbb{R}$ such that
+	\[
+		Q(A) = \int_A f \:\mathrm{d} m,
+	\]
+	where $f$ is a PMF (that is, $f$ is measurable, $f \leq 0$, $\int_\mathbb{R} f \:\mathrm{d}m$).	Show that it is a probability.
+\end{my_ex}
+\begin{my_remark}
+	The result is a particular case of the precedent exercise. Since we consider a PMF $f$, it is equivalent to restrict the $X$ of exercise [JP, 9.5] to absolutely continuous r.v.'s.
+\end{my_remark}
+
+\begin{my_ex}
+	Let $\left( \Omega, \mathcal{F}, \mathbb{P} \right)= \left( \mathbb{R}, \mathcal{B}, \mathcal{E}(\lambda) \right)$ for $\lambda>0$, where we recall that $f_\mathcal{E}(x)=\lambda e^{-\lambda x}$.
+	\begin{enumerate}
+		\item Consider $X: \omega \in \Omega \to \lfloor \omega \rfloor \in \mathbb{R}$. Show that $X \sim \mathcal{G}(1-e^{-\lambda})$, that is that the image law is a geometric distribution.
+		\item Compute $\mathbb{E}[X]$ directly, that is without making use of the expectation rule.
+		\item Compute $\mathbb{E}[X]$ using the expectation rule, and compare the proceedings with the above.
+	\end{enumerate}
+\end{my_ex}
+\begin{my_remark}
+	First, observe that since $X(\Omega)=\mathbb{Z}$, $X$ is discrete since $P_X(\mathbb{Z})=1$. Moreover, the support is just $\mathbb{N}$, since the exponential distribution is null for negatives and so we can consider instead $\tilde{X}$, a.s. agreeing, that is null for $x<0$. Then, it suffices to find the PMF:
+	\begin{equation*}
+		p_x(n)=
+		\mathbb{P}\left\{X=n\right\}=
+		\mathbb{P}\left\{X=n\right\}=
+		\mathbb{P}\left( \left( n,n+1 \right] \right)=
+		\int_{\left( n,n+1 \right]} f \:\mathrm{d}m=
+		\int_{n}^{n+1} \lambda e^{-\lambda t} \:\mathrm{d}t=
+		\left( 1 - e^{-\lambda} \right) e^{-\lambda n}.
+	\end{equation*}
+	This is, in fact, a geometric distribution. For the second point, we first verify that the expected value exists: by the above discussion, since $\tilde{X}=X$ a.s. and since $\tilde{X} \leq 0$, it follows that $X$ admitts e.v. We can find it with the following equialities: 
+	\begin{multline*}
+		\mathbb{E}[X] = \int_\Omega \lfloor \omega \rfloor \:\mathrm{d}\mathbb{P}(\omega) = \int_\Omega \sum^{\infty} k\mathbb{1}_{\left( n,n+1 \right]} \:\mathrm{d}\mathbb{P}(\omega) = \sum^{\infty} k \int_\Omega \mathbb{1}_{\left( n,n+1 \right]} \:\mathrm{d}\mathbb{P}(\omega) =\\= \sum^{\infty} k \mathbb{P} \left(\left( n,n+1 \right]\right) = \frac{1}{1 - e^{- \lambda}}.
+	\end{multline*}
+	We have used the corollary for series to the MCT in order to commute integration and summation (note that the r.v. is positive and so this is allowed). The last passage is motivated by the known result
+	\[
+		\sum^{\infty} k \, t^{k-1} = \frac{1}{(1-t)^2}.	
+	\]
+	With the expectation rule, this gets notably shortened.
+	\[
+		\mathbb{E}[X] = \int_\mathbb{R} \mathrm{id} \:\mathrm{d}P_X = \int_\mathbb{R} \lfloor x \rfloor \:\mathrm{d}P_X(x) = \sum_{k\in\mathbb{N}} k p_X(k) = \frac{1}{1 - e^{- \lambda}}.
+	\]
+	Thus, the expectation rule, known as e.r., can make computations much easier. Not only that, but if we were just given the image law of X and not the probabiltiy on $\left(\Omega,\mathcal{F}\right)$, we would have still been able to compute the expected value.
+\end{my_remark}
+
+\begin{my_ex}
+	Find the e.v. and var. of the discrete uniform distribution.
+\end{my_ex}
+\begin{my_remark}
+	Let $X\sim\mathrm{d}\mathcal{U}(\{1,\dots,n\})$. Then, the e.v. exists because the $X$ is positive, and $\mathbb{E}[X] = \frac{n+1}{2}$. Moreover, $\mathrm{Var}(X)=\mathbb{E}[X^2]-\mathbb{E}^2[X]=\frac{n^2-1}{12}$. Where the computation of the second moment comes from the closed form for the sum
+	\[
+	\sum^n_{k=0}  k^2 = \frac{n(2n+1)(n+1)}{6}.
+	\]
+\end{my_remark}
+
+\begin{my_ex}
+	By computing the e.v. of the distribution $p(k)=\frac{6}{\pi^2}\frac{1}{k^2}$ of $\mathbb{N}$, show that the expected value need not be finite. Otherwise said, show that there are r.v. that admitt the e.v., but not variance.
+\end{my_ex}
+\begin{my_remark}
+	As the distribution is positive, one has that the e.v. exists. Moreover, $X$ is discrete, and so
+	\[
+		\mathbb{E}[X] = \sum ^ \infty k p(k) = \frac{6}{\pi^2} \sum^\infty \frac{1}{k} = \infty.	
+	\]
+	Obviusly, $X \notin L^1$ and so $\mathrm{Var}$ is not defined.
+\end{my_remark}
