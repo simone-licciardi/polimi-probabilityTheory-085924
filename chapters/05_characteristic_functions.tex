@@ -1,0 +1,167 @@
+% 06_characteristic_functions.tex
+%! TeX root = ../main.tex
+
+\chapter{Funzione Caratteristica}
+
+Un presupposto\footnote{Più tipo una \textit{supposta}, per chi deve studiare Probabilità  sigh\dots}: questa sezione non può essere capita a fondo finchè non si sarà fatta analisi complessa ad AM3. Quindi, la scelta del corso è quella di fornire solo gli strumenti operativi, e ignorare l'aspetto teoretico.
+
+Operativamente, forniremo una caratterizzazione di $P$ su $(\mathbb{R}^n,\mathcal{B}^n)$ che sia alternativa alla funzione di ripartizione $F$ (CDF) e, dove definite, alle densità di probabilità $f$/$p$ (PDF/PMF) che permette di agevolare certe operazioni.
+
+\section{Fundamentals}
+
+\subsection{Prerequisiti}
+
+Dello spazio vettoriale $\mathbb{C}$ assumeremo come nota la bigezione con $\mathbb{R}^2$, e cioè dimestichezza con la loro forma algebrica.
+
+Inoltre, daremo per nota - \textit{come definizione} della funzione esponenziale complessa - l'espressione
+\[
+	e^{i\theta} = \cos(\theta) + i\sin(\theta).	
+\]
+
+Meno nota, ma comunque ben definita (in corsi futuri), è l'integrazione di una funzione a valori complessi.
+Senza entrare nei dettagli, si estende la teoria vista nel caso reale: sia $h:\mathbb{R}^n \to (\mathbb{C},\mathcal{B}^2)$ misurabile, allora per garantire la linearità \textit{definiremo} il suo integrale come
+\[
+	\int \limits_{\mathbb{R}^n} h(x) \, dx = \int \limits_{\mathbb{R}^n} \mathbb{Re}(h(x)) \, dx + i \int \limits_{\mathbb{R}^n} \mathbb{Im}(h(x)) \, dx,
+\]
+e parleremo di funzioni integrabili (ma non positive, visto che il concetto stesso è \textit{ill-defined}).
+Vale anche una stima di \textit{boundedness} (che può essere estesa dal caso reale):
+\[
+	\left| \int \limits_{\mathbb{R}^n} h(x) \, dx \right| \leq \int \limits_{\mathbb{R}^n} \left|h(x)\right| \, dx.
+\]
+
+\subsection{Definizione}
+
+Non ci perderemo nella comprensione dei concetti: ci importano i risultati e i limiti dello strumento. Partiamo da una definizione astratta.
+
+\begin{my_definition}[Funzione Caratteristica di $P$]
+	Sia $P$ una probabilità su $\mathbb{R}^n$. Allora, la sua funzione caratteristica $\hat{P}:\mathbb{R}^n\to\mathbb{C}$ è data da
+	\[
+		\hat{P} (\mathbf{u}) = \varphi (\mathbf{u}) = \int \limits_{\mathbb{R}^n} e^{i \mathbf{u}\cdot\mathbf{s}} \, P(d\mathbf{s}).
+	\]
+\end{my_definition}
+
+Dove osserviamo che aver utilizzato i numeri complessi garantisce la buona definizione: che l'intgranda sia limitata in quanto $\left| e^{i \mathbf{u} \cdot \mathbf{s}} \right| \leq 1$, implica che sia integrabile.
+
+Diamo ora la definizione operativamente più utile.
+
+\begin{my_definition}[Funzione Caratteristica di $X$]
+	Sia $X:\Omega \to \mathbb{R}^n$ una variabile aleatoria. Allora, la sua funzione caratteristica $\hat{P}_X:\mathbb{R}^n\to\mathbb{C}$ è data da
+	\[
+		\hat{P}_X (\mathbf{u}) = 
+		\varphi_X (\mathbf{u}) = 
+		\int \limits_{\mathbb{R}^n} e^{i \mathbf{u}\cdot\mathbf{s}} \, P_X(d\mathbf{s})
+		\overset{\mathrm{e.r.}}{=} \int \limits_{\Omega} e^{i \mathbf{u}\cdot X (\omega)} \, \mathbb{P}(d\omega) = \mathbb{E}\left[e^{i \mathbf{u}\cdot X (\omega)}\right].
+	\]
+\end{my_definition}
+
+Quindi, la funzione caratteristica di una variabile aleatoria è la funzione caratteristica della legge immagine $P_X$.
+
+\subsection{Caratterizzazione di $P$}
+
+Ecco i risultati teoretici cruciali per usare questi risultati.
+
+\begin{my_theorem}[Di Caratterizzazione]
+	Siano $P$ e $Q$ probabilità su $\mathbb{R}^n$. Allora,
+	\[
+		\hat{P} = \hat{Q} \quad \iff \quad P = Q.	
+	\]
+\end{my_theorem}
+\begin{my_corollary}
+	Siano $X$ e $Y$ vettori aleatori in $\mathbb{R}^n$. Allora,
+	\[
+		\hat{P}_X = \hat{P}_Y \quad \iff \quad P_X = P_Y,	
+	\]
+	e cioè hanno la stessa distribuzione.
+\end{my_corollary}
+
+Operativamente, se per verificare che $P = Q$, con la caratterizzazione $f$ tutti i controlli erano del tipo q.o., qua è sufficiente un controllo puntuale: se il criterio fallisce in un solo punto, allora sono probabilità diverse.
+
+\subsection{Computazione}
+
+Vale la pena notare che la definizione non è neanche lontanamente opeartiva. 
+A meno che uno non voglia lavorare che integrali di funzioni miste trigonometriche e algebriche, bisogna computare integrali complessi, per i quali non abbiamo gli strumenti.
+Quindi, il nostro approccio sarà quello di determinare (\textit{alla carlona}) gli integrali delle distribuzioni note e cercare di ricondurre i risultati a queste, o a loro combinazioni (attraverso certe regole di compatibilità).
+
+Riportiamo qua solo una tabella sintetica. ??
+
+Alla luce del teorema di Caratterizzazione sarebbe bello avere anche un risultato che permetta di \textit{invertire} questo processo: partendo dalla funzione caratteristica, ricavare la probabilità. Questo è possibile (circa), ma visto il taglio \textit{operativo} di questa sezione, non ci interessa.
+
+\subsection{Flop: Caratterizzazione analitica}
+
+Avere un oggetto che caratterizzi le distribuzioni è comodo, ma fornisce solo un criterio di unicità. 
+Negli altri casi - CDF, PDF e PMF - è sempre stato possibile trovare delle \textit{proprietà analitiche} che caratterizzavano tutte (e solo) le funzioni di quel tipo. Questo, per le funzioni caratteristiche, non sarà possibile.
+Quindi, per utilizzarle si deve avere a disposizione un ricco database di risultati, che ne permettano l'invertibilità.
+
+Al di là dei risultati noti abbiamo delle condizioni necessarie, per curare parzialmente il problema.
+
+\begin{my_lemma}
+	Sia $\varphi:\mathbb{R}^n \to \mathbb{C}$ una funzione caratteristica. Allora,
+	\begin{itemize}
+		\item $\varphi(0) = 1$
+		\item $|\varphi| \leq 1$
+		\item $\varphi$ è (uniformemente) continua.
+	\end{itemize}
+\end{my_lemma}
+
+Operativamente, $\varphi$ non è una funzione caratteristica se fallirà uno di questi test, mentre lo sarà se e solo se troveremo una $P$ associata.
+
+\subsection{Top: Momenti}
+Con le funzioni caratteristiche diventa immediato calcolare i momenti: riduciamo l'operazione da un'integrazione a una derivazione.
+
+\begin{my_theorem}[Funzione Caratteristica e Momenti]
+	Siano $X_k:\Omega\to\mathbb{R}$ per $k = 1,\dots,n$ variabili aleatorie tali che $X_k \in L^m (\mathbb{P})$ per ogni $k \leq n$. Allora, per $X=(X_k)$,
+	\begin{itemize}
+		\item $\sigma_X \in \mathcal{C}^m$
+		\item Vale la formula 
+			\[
+				\frac{\partial{}^m}{\partial{u_{k_1}}\dots\partial{u_{k_m}}} \varphi (\mathbf{u}) = i^m \mathbb{E}\left[X_{k_1} \dots X_{k_m} \, e^{i \mathbf{u}\cdot X}\right]
+			\]
+	\end{itemize}
+\end{my_theorem}
+
+Concettualmente, tanto è più integrabile $X$, tanto è più derivabile $\varphi_X$. 
+Inoltre, vale la commutatività di integrale e derivata complessi:
+\[
+	\frac{\partial{}^m}{\partial{u_{k_1}}\dots\partial{u_{k_m}}} \mathbb{E}\left[e^{i \mathbf{u}\cdot X}\right] = i^m \mathbb{E}\left[\frac{\partial{}^m}{\partial{u_{k_1}}\dots\partial{u_{k_m}}}e^{i \mathbf{u}\cdot X}\right].
+\]
+
+La conseguenza operativa più importante, comunque, è che ora trovare i momenti, misti o non, è facilissimo.
+
+\begin{my_corollary}
+	Se $X_1,\dots,X_m$ sono variabili in $L^m(\mathbb{P})$, allora vale
+	\[
+		\frac{\partial{}^m}{\partial{u_{k_1}}\dots\partial{u_{k_m}}} \varphi (\mathbf{0}) = i^m \mathbb{E}\left[X_{k_1} \dots X_{k_m}\right],
+	\]
+	e in particolare si hanno queste regole
+	\begin{itemize}
+		\item $\mathbb{E}[X_k] = \frac{1}{i} \frac{\partial{}}{\partial{u_k}}\varphi(0)$
+		\item $\mathbb{E}[X_k^2] = - \frac{\partial{}^2}{\partial{u_k}^2}\varphi(0)$
+		\item $\mathbb{E}[X_k X_j] = - \frac{\partial{}^2}{\partial{u_k}\partial{u_j}}\varphi(0)$
+	\end{itemize}	
+\end{my_corollary}
+
+Da questo è facile trovare anche al varianza e la covarianza.
+
+Una nota importante è che l'integrabilità è richiesta in ipotesi: non è sufficiente che $\varphi$ sia $\mathcal{C}^k$ per applicarlo, ma si deve verificare che le componenti siano $L_k$. Operativamente, questo può essere fatto per esempio con quale (brutale) approssimazione, e applicando il DCT.
+
+\subsection{Top: Trasformazioni Affini}
+
+Il seguente risultato ci permette di trovare molto facilmente la funzione caratteristica della trasformazione affine di una variabile aleatoria nota.
+
+\begin{my_lemma}
+	Sia $X$ un vettore aleatorio e $Y=AX + b$. Allora,
+	\[
+		\varphi_Y (\mathbf{u}) = e^{i \mathbf{u} \cdot b} \varphi_X (A^T \mathbf{u}).
+	\]
+\end{my_lemma}
+
+In particolare, questo fornisce un metodo efficace per gestire le proiezioni e le somme. Infatti, attraverso banali trasformazioni lineari di tipo riga, ricaviamo
+\begin{itemize}
+	\item $\varphi_{X_k} (u) = \varphi_X (0,\dots,0,u,0,\dots,0)$
+	\item $\varphi_{\sum X_k} =  \varphi_X (u,\dots,u)$
+\end{itemize}
+
+Un esempio pratico di applicazione è determinare la funzione caratteristica di una normale generica. (??)
+
+\subsection{Top: Indipendenza (e somme)}
+

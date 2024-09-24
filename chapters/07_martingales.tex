@@ -1,0 +1,124 @@
+% 06_characteristic_functions.tex
+%! TeX root = ../main.tex
+
+\chapter{Martingales}
+Discrete-time deterministic processes are an idealization: in reality, they are affected by uncertainty and this might be important for our analysis. In particular, even if we could model the process, determining its limiting behaviour it's a whole different task altogether. 
+
+Usually we can determine (statistically or modellistically) the law of $X_n$, but cannot study its limit as that would require to evaluate infinitely many $X_n$'s, enough times. 
+Thus, we will assume that the law of the random variables in the process is known, and we will focus on determining the limiting law.
+
+We will study a kind of very general kind of stochastic process: martingales. While general, this structure will allow some powerful results on convergence and large deviations. Here is a formalization of what we have just described.
+
+\begin{my_definition}
+A discrete time stochastic process is a sequence of random variables 
+$\{X_n\}_{n \in \mathbb{N}}$ defined on $(\Omega, \mathcal{F}, P)$.
+\end{my_definition}
+
+\begin{my_example}
+A classic example of a discrete time stochastic process is a simple random walk, where:
+\[X_n = \sum_{i=1}^n Y_i\]
+and $\{Y_i\}$ are independent, identically distributed random variables taking values $+1$ or $-1$ with equal probability.
+\end{my_example}
+
+\section{Well Posedness}
+\subsection{Independence}
+We first recall the idea behind stochastic independence.
+% Set definition
+% RV definition
+% Sigma Alg definition
+\subsection{Borel-Cantelli Lemma}
+
+Let's first fix the ideas with a use case: \href{https://almostsurelymath.blog/2019/09/02/a-devious-bet-the-borel-cantelli-lemma/}{The Devious Bet (blog post)}.
+
+This result is pretty sleek and thus mathematicians like it; but to an application minded scientist, it doesn't really light on any synapsis. To me, its formulation is not intrepretable and I was clueless about why we had to introduce it. 
+
+Here is the actual Lemma.
+
+\begin{my_theorem}[First Borel-Cantelli Lemma]
+	\label{first_BC}
+	Let $\{A_n\}_{n=1}^{\infty}$ be a sequence of events in a probability space $(\Omega, \mathcal{F}, P)$. If
+	\[ \label{condition_first_BC} \sum_{n=1}^{\infty} P(A_n) < \infty,\]
+	then
+	\[ \label{result_first_BC} P(A_n,\text{ i.o.}) = 0.\]
+\end{my_theorem}
+	
+\begin{my_theorem}[Second Borel-Cantelli Lemma]
+	\label{second_BC}
+	Let $\{A_n\}_{n=1}^{\infty}$ be a sequence of independent events in a probability space $(\Omega, \mathcal{F}, P)$. If
+	\[\sum_{n=1}^{\infty} P(A_n) = \infty,\]
+	then
+	\[P(A_n,\text{ i.o.}) = 1.\]
+\end{my_theorem}
+
+We are then interested furnishing an interpretation of lemma (what is it saying?) and understanding why it matters.
+
+\subsubsection{First Borel-Cantelli Lemma}
+Lemma \ref{first_BC} is actually a very unintelligible way to say something very stupid; namely that \textit{if $\mathbb{E}[X] < \infty$ implies $X < \infty$ almost surely}.
+
+Indeed, we can restate condition \ref{condition_first_BC} as
+\[\sum_{n=1}^{\infty} P(A_n) = \sum_{n=1}^{\infty} \mathbb{E}[1\!\!1_{A_n}]=\mathbb{E}\left[\sum_{n=1}^{\infty} 1\!\!1_{A_n}\right] < \infty, \]
+where the first equality comes from the expectation of indicators and the second from the Monotone Convergence Theorem. So, it is basically saying \textit{if we expect $X_n$ to be finite\dots}.
+
+We can also restate the conclusione \ref{result_first_BC} by observing that
+\[P(A_n,\text{ i.o.}) = P(\sum_{n=1}^{\infty} 1\!\!1_{A_n} < \infty),\]
+where one simply checks that the two set share the same $\omega$'s. Then, the result is equivalent to
+\[\sum_{n=1}^{\infty} 1\!\!1_{A_n} < \infty \text{ a.s.}\]
+
+Then, if $S = \sum_{n=1}^{\infty} 1\!\!1_{A_n}$, the First Borel-Cantelli Lemma says just that $\mathbb{E}[S] < \infty$ implies $S < \infty$ almost surely.
+
+So the interpretation is that when we collect the status of a light at each second $n$ (has $A_n$ happened or not?), if we expect finitely many lights to be on, that will happen almost surely. Physically, if we think of $\mathbb{E}$ as a centroid of the mass distribution, if the centroid is finite the sequence cannot have an unbalanceable mass at $+\infty$. 
+
+The above discussion furnishes trivially a proof. Another idea would be that of assuming that the probability of the i.o. set $A$ is nonnull, and show that every $n$ sets $A$ is repeated, then lower bounding $\sum 1\!\!1_{A_n}$ with an (divergent) series of costant terms. This won't work: we could spread $A$ so that its first element was in each set $A_k$, the second in each set $A_{2k}$ and so on. To save this approach, one could regroup only a fraction $0 < \alpha < 1$ of the mass, removing the spread, and then lower bounding.
+
+Here is the standard proof. The tools are the tail necessary condition on series and Boole's inequality\footnote{Which is just disjointification and sigma additivity.}.
+
+\begin{proof}
+	Since $\sum_{m \geq n} P(A_m)$ by the tail necessary condition on series we have $\sum_{m \geq n} P(A_m) \to 0$. 
+	
+	Then, by applying Boole's Inequality one finds
+	\[
+	P(A_n,\text{ i.o.}) = P(\bigcap_n\bigcup_{m \geq n} A_m) = \lim \limits_n P(\bigcup_{m \geq n} A_m),
+	\] 
+	which proves the thesis by monotone continuity of probabilty measures.
+\end{proof}
+
+\subsubsection{Second Borel-Cantelli Lemma}
+This one is interesting. Here the idea is that if the events in the process are independent, it doesn't really matter in which order I am taking them or if we consider them all: the asymptotic result shouldn't be affected by this. That is, (this is nontrivial, but intuitive) it should either have null or unit probability.
+
+Interpretation-wise, it happens almost surely that either infinitely many lights come up every time or only finitely do: the independence of events makes it impossible to have chances. 
+
+This is very hand-wavy, but an intuition of the \textit{why} is all we really need: the final form of this result will be the Zero-One Law, where we will get a better feel about the underlying asymptotic information structure (or tail sigma algebra).
+
+Proof-wise, this is more demanding. Under independence, we have two equivalent formulations:
+\begin{equation}
+	\label{as_secondborelcantelli} 
+	\sum_{n=1}^{\infty} P(A_n) = \infty \implies P(A_n,\text{ i.o.}) = 1,
+\end{equation}
+\begin{equation}
+	\label{negligible_secondborelcantelli}
+	P(A_n,\text{ i.o.}) = 0 \implies \sum_{n=1}^{\infty} P(A_n) < \infty.
+\end{equation}
+For the proof, our choice will be \ref{as_secondborelcantelli}, as to show \ref{negligible_secondborelcantelli} we would need to find a convergent series upper bounding ours: this cannot be done easily, as we could spread the i.o. set over the sequence.
+
+\begin{proof}
+	Both Jacod Protter and Karr present this proof, basically leveraging the same tools: 
+	\begin{enumerate}
+		\item That an infinite product is 1 iff each of its members is,
+		\item Converting unions into intersections formula,
+		\item Independent sets definition,
+		\item (Karr) Upper bounding $1+x$,
+		\item (JP) Transforming product into sum (2ith $\log$) and upper bounding $\log(1+x)$.
+	\end{enumerate}
+\end{proof}
+
+Mathematically, this theorem furnishes equivalence conditions between the moment being finite and the series being finite almost surely.
+
+\begin{proof}
+	
+\end{proof}
+
+\subsection{0-1 Kolgomorov Law}
+
+Morally, we introduced Borel-Cantelli Lemma because a sequence of sets is, really, the sequence of indicator functions of these sets. That is, it is a naive type of stochastic process, which can be studied without delving into measure-theoretic issues. We now want to do exactly that, in order to extend the second Lemma to generic (independent) processes.
+
+\subsubsection{Tail Sigma Algebra}

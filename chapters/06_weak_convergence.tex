@@ -1,0 +1,165 @@
+% 06_weak_convergence.tex
+%! TeX root = ../main.tex
+
+\renewcommand{\emph}[1]{\textbf{\textit{#1}}}
+
+\chapter{Convergenza Debole}
+
+	Le convergenze viste finora lavorano sulla distanza puntuale $\left| X_n(\omega) - X(\omega) \right|$, considerata in diverse maniere (su un evento quasi certo, come distanza media, come distanza media a code appiattite\dots). 
+	Quindi, è sempre necessario rifarsi a un dominio comune e valutare questo oggetto per ogni $\omega$, anche nel caso in cui si applichi la expectation rule, visto che comunque $X_n - X$ deve essere \textbf{una} variabile aleatoria, e cioè avere un solo dominio.
+	Ci proponiamo di definire un tipo di convergenza che lavori esclusivamente sul codominio, e cioè sugli spazi di probabilità immagine (o meglio, le leggi immagine, visto che $\mathbb{R}$ e $\mathcal{B}$ saranno un codominio fisso).
+
+\subsection{Convergenza sul codominio}
+
+Operativamente, il nostro piano per costruire una convergenza è partire imponendo che le successioni costanti convergano, e poi richiedendo che questa definizione sia consistente con quelle più forti.
+
+\begin{my_remark}[Caratterizzazzione dell'identità di probabilità]
+	L'unico risultato noto a riguardo è il Criterio di Carathèordory: siano $P$ e $Q$ probabilità su $(\mathbb{R},\mathcal{B})$, e sia $\mathcal{A}\subset\mathcal{B}$ una $\pi$-classe. 
+	Se $P|_\mathcal{A}=Q|_\mathcal{A}$ allora $P=Q$. 
+	In particolare questo vale se $\mathcal{A}=\tau$, la topologia di $\mathbb{R}$.
+	Quindi, sarà sufficiente richiedere che $P(E)=Q(E)$ per ogni $E\in\tau$.
+
+	Questo è già più maneggevole, ma possiamo migliorarlo: raffiniamo questo risultato spostando il problema da un setting insiemistico a uno funzionale. Da $\mathbb{E}_P(\mathbb{1_E})=P(E)$, ricaviamo affinchè $P=Q$ è sufficiente \textit{testare} $P$ e $Q$ sull'insieme delle variabili aleatorie indicatrici, e cioè verificare che $\mathbb{E}_P(\mathbb{1_E})=\mathbb{E}_Q(\mathbb{1_E})$ per ogni $E\in\mathcal{B}$.
+
+	Sfruttando la definizione topologica di continuità\footnote{??} possiamo recastare ulteriormente questo risultato: è sufficiente testare su $\mathcal{C}^0_b$\footnote{$\mathcal{C}^0_b$ è l'insieme delle funzioni continue e limitate su $\mathbb{R}$}.
+\end{my_remark}
+
+\begin{my_lemma}[Identità su $\mathcal{C}^0_b$]
+	\label{identità_C0b}
+	Siano $P$ e $Q$ probabilità su $(\mathbb{R},\mathcal{B})$. Allora, $P=Q$ se e solo se
+	\[
+		\int\limits_R h(x) P(\mathrm{d}\,x)=\int\limits_R h(x) Q(\mathrm{d}\,x)	
+	\]
+	per ogni $h\in\mathcal{C}^0_b$.
+\end{my_lemma}
+
+Questa è una caratterizzazione dell'identità ragionevolmente maneggevole e quindi possiamo estenderla a convergenza. Cioè, consideriamo due misure di probabilità \textit{vicine} se la distanza euclidea tra gli integrali è piccola.
+
+%Abbiamo visto per esempio che, 
+
+\begin{my_definition}[Convergenza debole]
+		$\mathbb{P}_{n} \implies \mathbb{P}$ se e solo se per ogni $h \in \mathcal{C}^0_b$ si ha $$\int h(s) \mathbb{P}_{n} (\mathrm{d} s) \to \int h(s) \mathbb{P} (\mathrm{d} s)$$
+\end{my_definition}
+
+E ovviamente per le variabili aleatorie abbiamo la definizione associata.
+
+\begin{my_definition}[Convergenza in legge]
+	Sia $(X_n)$ una successione di variabili aleatorie e siano $X_n:\Omega_n\to\mathbb{R}$,$X:\Omega\to\mathbb{R}$. Allora,$X_n \xrightarrow{d} X$ se e solo se $P_{X_n} \implies P_X$.
+\end{my_definition}
+
+\begin{my_lemma}
+	\label{char_law_conv}
+	$X_n \xrightarrow{d} X$ se e solo se per ogni $h \in \mathcal{C}^0_b$ si ha $\mathbb{E}\left[h(X_n)\right]=\mathbb{E}\left[h(X)\right]$.
+\end{my_lemma}
+
+
+\begin{my_remark}[La definizione è ben posta]
+	Assumendo la misurabilità, affinchè $h$ sia integrabile rispetto a ogni probabilità è, fondamentalmente, necessario che sia limitata: se non lo fosse, sarebbe sufficiente concentrare in quel punto la massa.
+	Ci si potrebbe chiedere perchè non usare solo la misurabilità di $h$: il fatto è che anche se questo non dà problemi nell'identità \ref{identità_C0b}, imponendo di testare la convergenza su una classe più ampia di funzioni si restringe la classe di convergenze che valgono.
+	In questo caso, perdiamo la classe delle convergenze numeriche\footnote{Che sono ovviamente desiderabili: infatti, quando si dà una definizione più ampia della precednete, è buona norma che quella precedente ne sia un sottocaso, e cioè continui a valere.
+	Poichè siamo partiti della convergenza certa, che a sua volta estende la convergenza puntuale, che estende quella numerica, è essenziale che la convergenza numerica valga.}. 
+	Per esempio, per $X_n = \frac{1}{n}$ q.c. e $X = 0$ q.c., testando rispetto alla funzione $h=\delta_0$ (misurabile, non continua), otteniamo $\mathbb{E}[h(X_n)] = h\left(\frac{1}{n}\right) = 0 \nrightarrow 1 = h(0) = \mathbb{E}[h(X)]$. Per $h\in C^0_b$, non abbiamo questo problema, visto che le funzioni continue commutano con il limite.
+\end{my_remark}
+
+Lavorare sul codominio vuole dire che gli spazi su cui ambientiamo $X_n$ e $X$ possono essere diversi. Consideriamo per esempio la dimostrazione del Lemma \ref{char_law_conv}.
+
+\begin{proof}
+	La dimostrazione si riduce a 
+	\begin{multline}
+		\mathbb{E}\left[h(X_n)\right]=
+		\int\limits_{\Omega_n} h(X_n(\omega)) \mathbb{P}_n (\mathrm{d} \omega)
+		\overset{e.r.}{=}\int\limits_\mathbb{R} h(s) P_{X_n} (\mathrm{d} s)\xrightarrow{Hp} \\ \xrightarrow{Hp}\int\limits_\mathbb{R} h(s) P_{X} (\mathrm{d} s)
+		\overset{e.r.}{=}
+		\int\limits_{\Omega} h(X(\omega)) \mathbb{P} (\mathrm{d} \omega)
+		=\mathbb{E}\left[h(X)\right].		
+	\end{multline}
+\end{proof}
+
+Crucialmente, è necessario computare un limite rispetto all'intero spazio. La convergenza debole permette di ridurre questo problema (attraverso l'expectation rule) ad un limite sulla misura nello stesso spazio, rendendolo computabile.
+
+\begin{my_remark}[Considerazioni Modellistiche]
+	Modellisticamente, lo sperimentatore che osserva le distribuzioni di $X_n$, individua la legge del limite, di $X$, senza dedurla dal confronto con le altre che ha davanti, ma semplicemente accorgendosi che assomiglia a una certa distribuzione (eventualmente definita su un altro spazio di probabilità). 
+	Per concretizzare questo, pensiamo al TCL: siano le $X_n\sim\mathcal{Ber}(p)$, $\Omega_n = \{0,1\}$, allora $\bar{X}_n \xrightarrow{d} N$. 
+	Cioè lo sperimentatore sta dicendo che anche se la normale non appare da nessuna parte (cioè non c'è un \textit{confronto}), tutto è discreto e addirittura lo spazio di probabilità è binario, per come distribuisce la media campionaria è indistinguibile da una normale.
+\end{my_remark}
+\begin{my_remark}[Considerazioni Teoretiche]
+	Si fa presente che spesso si riesce ad ambientare tutte le variabili aleatorie su uno stesso spazio di probabilità. Anche se questo sembrerebbe rendere inutile il discorso fatto finora, in realtà stiamo solo nascondendo la polvere sotto al tappeto: non possiamo imporre infatti l'indipendenza. 
+	In altri termini, sopravvive il fatto che mentre per computare tutte le precedenti convergenze serviva conoscere la legge congiunta di $(X_n,X)$ per ogni $n\in\mathbb{{N}}$, qua è sufficiente conoscere quella marginale di $X_n$. Questo diventerà evidente alla luce del Teorema di Levy.
+\end{my_remark}
+
+\begin{my_remark}[Unicità del limite]
+	Il Tradeoff è che le precedenti convegenze erano drasticamente più forti, perchè erano tra variabili aleatorie mentre questa è tra leggi. Basti pensare che il limite non è unico: è unica la sua legge. Formalmente, vale che se $X_n \xrightarrow{d} X$ e $X_n \xrightarrow{d} \tilde{X}$, allora $P_X = P_{\tilde{X}}$.
+\end{my_remark}
+
+\subsection{Criteri di convergenza specializzati}
+
+Partiamo da alcuni criteri specializzati, ma solo sufficienti.
+
+\begin{my_theorem}[PMF Criterion]
+	Suppose $X_n$ and $X$ are discrete, and $p_{X_n}(k) \to p_X(k)$ for all $k \in S = S_X \cup \bigcup S_{X_n}$. Then, $X_n \xrightarrow{d} X$.
+\end{my_theorem}
+
+Crucialmente, questo criterio può fallire se $S$ ha punti di accumulazione. Basti considerare il caso di $\delta_\frac{1}{n} \xrightarrow{d} \delta_0$, per cui però $p_{X_n}(0)=0 \nrightarrow 1=p_X(0)$.
+
+\begin{my_theorem}[PDF Criterion]
+	Suppose $X_n$ and $X$ are discrete, and $p_{X_n}(k) \to p_X(k)$ for all $k \in S = S_X \cup \bigcup S_{X_n}$. Then, $X_n \xrightarrow{d} X$.
+\end{my_theorem}
+
+Alcune applicazioni notevoli di questi criteri sono le seguenti.
+
+?? % legge degli eventi rari
+
+?? % esempio normale dei parametri che convergono
+
+\subsection{Criteri di convergenza generici}
+
+Il principale motivo per cui servono criteri generali è che non solo ci sono distribuzioni che non sono nè discrete, nè continue, ma in maniera fondamentalmente più contorta il limite di discrete può essere continuo e viceversa. 
+
+Ricordiamo preliminarmente che abbiamo 2 caratterizzazioni di tipo generale a cui possiamo appoggiarci: la CDF e la CF. Per entrambe esiste un criterio (necessario e sufficiente) che le relaziona con la convergenza in legge.
+
+Cominciamo dalla funzione di ripartizione.
+
+\begin{my_theorem}[CDF Criterion]
+	$X_n \xrightarrow{d} X$ se e solo se $F_{X_n}(x) \to F_X(x)$ per ogni $x\in\mathbb{R}$ punto di continuità di $F_X$.
+\end{my_theorem}
+
+Si osservi che per ricavare il valore di $F_X$ nei punti di discontinuità è sufficiente applicare la continutià da destra (una proprietà delle funzioni di ripartizione).
+La classica situazione di fallimento è quella di $\delta_{\frac{1}{n}}$: il limite di $F_{X_n}(0)$ è $0$, ma per continuità da destra $F_X(0)=1$.
+Operativamente, se il limite puntuale delle $F_{X_n}$ è una CDF ed è continuo, allora è verificata la convegenza.
+
+Passiamo al caso della funzione caratteristica.
+
+\begin{my_theorem}[Levy]
+	\label{levy} Per $X_n$,$X$ variabili aleatorie reali,
+	\begin{enumerate}
+		\item Se $X_n \xrightarrow{d} X$ allora $\varphi_n(u) \to \varphi(u)$ per ogni $u \in \mathbb{R}$.
+		\item Se $\varphi_n(u) \to \psi(u)$ e $\psi$ è continua in $0$, allora esiste una variabile aleatoria $X$ tale che $\varphi_X = \psi$ e $X_n \xrightarrow{d} X$.
+	\end{enumerate}
+\end{my_theorem}
+
+Da cui ricaviamo la caratterizzazione della convergenza in legge attraverso la funzione caratteristica.
+
+\begin{my_corollary}[CF Criterion]
+	$X_n \xrightarrow{d} X$ se e solo se $\varphi_n(u) \to \varphi(u)$ per ogni $u\in\mathbb{R}$.
+\end{my_corollary}
+
+\emph{Non Solo una caratterizzazione:} Il Teorema di Levy dice di più. Tutti i criteri visti finora alla base avevano qualche forma di claim su come fosse fatto il limite\footnote{Come dice Greg, capire see $X_n$ converge ad $X$ è un mestiere da boys.}. Questo teorema ci dota invece di un criterio per stabilire addirittura \textbf{se} la successione converge\footnote{E, sempre secondo Greg, stabilire se $X_n$ converge è una questione per men.}, senza conoscere il limite (che, anzi, ci viene fornito come corollario).
+
+\begin{my_corollary}[Convergenza]
+	Siano $X_n$ variabili aleatorie. Allora, $X_n$ converge in legge se e solo se $\varphi_n(u) \to \psi(u)$ e $\psi$ è continua in $0$.
+\end{my_corollary}
+
+\emph{Perchè è devastante?} La ragione per cui le altre convergenze non hanno questo genere di criterio è, di nuovo, che si tratta di una convergenza sul codominio. 
+Infatti, per staibilire le altre convergenze è necessario conoscere la distribuzione congiunta di $(X_n,X)$ per ogni $n\in\mathbb{N}$: per esempio,
+\[
+	\mathbb{E}\left|X_n - X\right|=\int\limits_\Omega |x-y| P_{(X_n,X)}(\mathrm{d}\,x \, \mathrm{d}\,y).
+\]
+Nel caso della convergenza in legge, non è necessario. Quindi, solo in questo caso abbiamo speranza di avere un criterio che funzioni a prescindere dalla legge congiunta, e quinda da $X$.
+
+Questo conclude anche il discorso precedente: qua si vede che assumere lo stesso spazio, benchè teoricamente possibile, non elimina la flessibilità questa convergenza, ma semplicemnete la nasconde.
+
+?? % esempi
+
+\subsection{Proprietà}
+
+\subsection{Forza ed inversione}
